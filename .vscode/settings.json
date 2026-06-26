@@ -1,11 +1,14 @@
 {
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
   "latex-workshop.chktex.enabled": true,
-  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoBuild.run": "onFileChange",
+  "latex-workshop.latex.watch.files.interval": 1000,
   "latex-workshop.latex.outDir": "%DIR%/build",
-  "latex-workshop.latex.recipe.default": "xelatex × 2 + bibtex",
+  "latex-workshop.latex.recipe.default": "xelatex -> bibtex -> xelatex x2",
   "latex-workshop.latex.recipes": [
     {
-      "name": "xelatex × 2 + bibtex",
+      "name": "xelatex -> bibtex -> xelatex x2",
       "tools": ["xelatex", "bibtex", "xelatex", "xelatex"]
     },
     {
@@ -59,6 +62,8 @@
     "*.synctex.gz(busy)",
     "*.nav"
   ],
+  "latex-workshop.view.pdf.auto": "onBuild",
   "latex-workshop.latex.autoClean.run": "onFailed",
-  "latex-workshop.synctex.afterBuild.enabled": true
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.formatting.latex": "latexindent"
 }
