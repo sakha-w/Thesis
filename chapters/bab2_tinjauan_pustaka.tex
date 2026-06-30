@@ -1,90 +1,145 @@
-\chapter{Tinjauan Pustaka}
+\chapter{Kajian Pustaka}
 
-\section{Studi Terkait}
+\section{Teori Dasar}
+\subsection{Process Mining pada Domain Pemeliharaan}
+\textit{Process mining} merupakan pendekatan analitik yang mengekstraksi pengetahuan dari \textit{event logs} untuk memahami hubungan antar-proses dalam suatu sistem~\cite{horn2019application}. Dalam domain pemeliharaan, pendekatan ini memungkinkan analisis tidak hanya pada tingkat peralatan secara individu, tetapi juga mencakup keterkaitan antar-unit secara lebih menyeluruh. Dengan merekam \textit{traces} aktivitas yang terjadi secara berurutan, \textit{process mining} dapat mengungkap pola perilaku mesin, ketergantungan antar-proses, serta hambatan dalam alur produksi yang sebelumnya sulit dideteksi~\cite{horn2019application}. Hasil analisis ini memberikan dasar bagi pengambilan keputusan yang lebih tepat dalam upaya optimalisasi peralatan dan perpanjangan masa pakai mesin~\cite{horn2019application}.
 
-Penelitian mengenai arsitektur \textit{multitenant} berkembang seiring meningkatnya adopsi model layanan \textit{Software as a Service} (SaaS). Bezemer dan Zaidman \cite{ref3} menjelaskan bahwa \textit{multitenancy} merupakan pendekatan yang memungkinkan banyak \textit{tenant} menggunakan satu aplikasi dan satu basis data yang sama secara bersama. Pendekatan ini memberikan keuntungan berupa peningkatan utilisasi sumber daya perangkat keras, kemudahan pemeliharaan aplikasi, serta penurunan biaya operasional karena proses pembaruan sistem cukup dilakukan pada satu \textit{instance} aplikasi. Selain itu, \textit{tenant} tetap dapat menggunakan aplikasi sesuai kebutuhan masing masing melalui mekanisme konfigurasi tanpa harus memiliki \textit{instance} aplikasi yang terpisah. Untuk mendukung kebutuhan tersebut, arsitektur \textit{multitenant} memerlukan beberapa komponen utama yang mengatur proses autentikasi \textit{tenant}, konfigurasi aplikasi, dan pengelolaan data \textit{tenant}. Bezemer dan Zaidman \cite{ref3} menjelaskan bahwa komponen tersebut berperan dalam menjaga pemisahan konfigurasi dan data antar \textit{tenant} pada lingkungan \textit{multitenant}.
+\subsection{Process Mining dan Process Discovery}
+\textit{Process mining} merupakan disiplin ilmu yang menjembatani \textit{data science} dengan manajemen proses bisnis (\textit{Business Process Management}) untuk mengekstraksi wawasan dari \textit{event logs} \cite{vanderAalst2016_process_mining}. Salah satu kapabilitas utamanya adalah \textit{process discovery}, yaitu teknik untuk memodelkan proses bisnis secara otomatis tanpa informasi apriori mengenai bagaimana proses seharusnya berjalan \cite{augusto2019automated}.
 
-Implementasi \textit{multitenancy} tidak hanya berfokus pada penggunaan aplikasi secara bersama, tetapi juga membutuhkan mekanisme yang mampu memisahkan data dan konfigurasi antar \textit{tenant}. Bezemer dan Zaidman \cite{ref3} menunjukkan bahwa proses autentikasi \textit{tenant}, pengelolaan konfigurasi, serta penyesuaian \textit{query} pada basis data menjadi komponen penting dalam menjaga isolasi data pada lingkungan \textit{multitenant}. Seiring berkembangnya implementasi \textit{multitenancy} pada berbagai \textit{platform} \textit{SaaS}, fokus penelitian tidak lagi hanya pada aspek efisiensi penggunaan sumber daya. Krebs et al. \cite{ref4} menunjukkan bahwa penggunaan satu \textit{instance} aplikasi untuk melayani banyak \textit{tenant} memunculkan sejumlah perhatian arsitektural baru, seperti \textit{performance isolation}, \textit{customization}, \textit{data management}, dan \textit{tenant isolation}. Tantangan tersebut muncul karena setiap \textit{tenant} memiliki kebutuhan, konfigurasi, dan volume penggunaan yang berbeda, sementara seluruh \textit{tenant} tetap berbagi sumber daya yang sama. Oleh karena itu, implementasi \textit{multitenancy} tidak hanya menuntut efisiensi infrastruktur, tetapi juga memerlukan mekanisme yang mampu menjaga konsistensi layanan, keamanan data, serta isolasi antar \textit{tenant}.
+Meskipun algoritma \textit{process discovery} konvensional dapat menghasilkan model dari data terstruktur, penerapannya pada lingkungan kompleks seperti MRO menghadapi tantangan terkait tingginya \textit{noise} dan variabilitas perilaku. Hal ini menyebabkan model yang dihasilkan menjadi rumit dan sulit dipahami (\textit{spaghetti models}) \cite{augusto2019automated}. Selain itu, algoritma tradisional kerap mengabaikan pengetahuan domain yang tersirat dalam dokumen teks, sehingga model yang dihasilkan mungkin akurat secara statistik tetapi tidak sepenuhnya patuh pada logika bisnis atau regulasi keselamatan \cite{norouzifar2024}.
 
-Penelitian mengenai penyimpanan data pada sistem \text{multitenant} berkembang untuk mengatasi permasalahan konsolidasi \text{tenant} dalam satu basis data. Aulbach et al. \cite{ref6} meneliti berbagai teknik \textit{schema mapping} yang digunakan pada basis data \textit{multitenant}, seperti \textit{Private Table Layout}, \textit{Extension Table Layout}, \textit{Universal Table Layout}, \textit{Pivot Table Layout}, dan \textit{Chunk Folding}. Setiap pendekatan menawarkan karakteristik yang berbeda dalam aspek fleksibilitas skema, tingkat konsolidasi \textit{tenant}, serta penggunaan sumber daya basis data. Perbandingan beberapa teknik pemetaan skema tersebut ditunjukkan pada Gambar \ref{fig:schema_mapping_aulbach}.
+\subsection{Generative Artificial Intelligence dan Large Language Models}
+Generative AI dan Large Language Model (LLM) merupakan dua konsep yang saling terkait erat dan bersama-sama mendorong revolusi dalam pemrosesan bahasa alami serta berbagai aplikasi kecerdasan buatan modern. Generative AI adalah payung besar untuk teknologi yang mampu menciptakan konten baru---mulai dari teks, gambar, hingga audio---dengan mempelajari pola dari data yang sangat besar. Salah satu pencapaian paling menonjol dari generative AI adalah kemunculan LLM, seperti GPT, BERT, dan PaLM2, yang secara khusus dirancang untuk memahami, memproses, dan menghasilkan bahasa alami dengan tingkat kemiripan yang sangat tinggi dengan manusia \cite{hagos2024recentLLM}.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.8\textwidth]{assets/bab2/2.png}
-  \caption{Perbandingan Teknik \textit{Schema Mapping} (Sumber: Aulbach et al. \cite{ref6})}
-  \label{fig:schema_mapping_aulbach}
-\end{figure}
+LLM dibangun di atas arsitektur transformer dan dilatih menggunakan korpus teks dalam skala masif, sehingga mampu mengenali pola bahasa yang kompleks dan menghasilkan respons yang relevan untuk berbagai tugas, seperti tanya jawab, rangkuman, terjemahan, hingga pembuatan kode \cite{yan2024generativeLLM}.
 
-Berdasarkan Gambar \ref{fig:schema_mapping_aulbach}, pendekatan \textit{Private Table Layout} memberikan fleksibilitas yang tinggi karena setiap \textit{tenant} dapat memiliki struktur tabel yang berbeda. Namun, jumlah tabel yang harus dikelola akan meningkat seiring bertambahnya \textit{tenant}. Aulbach et al. \cite{ref6} menjelaskan bahwa peningkatan jumlah tabel dapat memengaruhi skalabilitas basis data karena kebutuhan memori dan metadata akan terus bertambah. Pada eksperimen yang dilakukan, peningkatan jumlah tabel hingga 100.000 tabel menyebabkan penurunan \textit{throughput} dan meningkatnya waktu respons sistem dibandingkan kondisi ketika \textit{tenant} menggunakan struktur penyimpanan yang lebih terpusat.
+\subsection{PM4Py (Process Mining for Python)}
+PM4Py adalah pustaka perangkat lunak \textit{open-source} yang menyediakan berbagai algoritma \textit{process mining} modern dalam ekosistem Python \cite{berti2019pm4py}. Pustaka ini mendukung algoritma \textit{Inductive Miner}, \textit{Heuristic Miner}, \textit{conformance checking}, dan analisis kinerja. Fleksibilitasnya memungkinkan integrasi keluaran anotasi dari LLM, seperti label \texttt{action\_type}, ke dalam alur kerja \textit{process discovery} sehingga ideal untuk pendekatan hibrida \textit{AI-assisted process mining}.
 
-Penelitian selanjutnya dilakukan oleh Pippal et al. \cite{ref9} yang mengembangkan arsitektur basis data \textit{multitenant} menggunakan pendekatan penyimpanan bersama untuk mendukung jumlah \textit{tenant} yang besar. Dalam arsitektur yang diusulkan, \textit{tenant} dibedakan menggunakan identitas \textit{tenant} pada setiap data sehingga seluruh \textit{tenant} dapat menggunakan basis data dan struktur penyimpanan yang sama. Arsitektur tersebut memungkinkan penggunaan sumber daya perangkat keras, perangkat lunak, basis data, skema, dan tabel secara bersama sehingga lebih sesuai untuk lingkungan dengan jumlah \textit{tenant} yang banyak dan volume data yang relatif kecil pada setiap \textit{tenant}. Hasil penelitian menunjukkan bahwa penggunaan penyimpanan bersama mampu meningkatkan efisiensi pengelolaan sistem dibandingkan pendekatan yang menyediakan struktur penyimpanan terpisah untuk setiap \textit{tenant} \cite{ref9}.
+\subsection{Petri Net}
+Sebuah \textit{Petri net} dapat dinyatakan sebagai tripel $N = (P, T, F)$ dengan $P$ himpunan \textit{place}, $T$ himpunan \textit{transition}, dan $F \subseteq (P \times T) \cup (T \times P)$ relasi alir yang menghubungkan keduanya. Kondisi proses direpresentasikan oleh distribusi \textit{token} pada \textit{place}, yang disebut \textit{marking}. Sebuah \textit{transition} dapat menyala (\textit{fire}) bila seluruh \textit{place} masukannya memiliki \textit{token}, dan penyalaan itu memindahkan \textit{token} sehingga \textit{marking} berubah. Notasi ini menjadi keluaran utama tahap \textit{process discovery} pada Tugas Akhir, sebab algoritma \textit{Inductive Miner} menghasilkan model dalam bentuk \textit{Petri net} yang \textit{sound} dan \textit{block-structured} \cite{vanderAalst2016_process_mining}.
 
-Selain aspek penyimpanan data, penelitian mengenai \textit{multitenancy} juga berkembang pada proses konfigurasi dan \textit{provisioning} \textit{tenant}. Mietzner et al. \cite{ref8} mengusulkan pendekatan untuk membangun aplikasi \textit{SaaS} yang dapat dikonfigurasi sesuai kebutuhan masing masing \textit{tenant} melalui penggunaan \textit{variability descriptor} dan \textit{multi-tenancy pattern}. Dalam model tersebut, aplikasi dibagi menjadi komponen yang bersifat tetap untuk seluruh \textit{tenant} dan komponen yang dapat dikonfigurasi secara spesifik pada setiap \textit{tenant}. Pemisahan tersebut bertujuan untuk mempermudah proses \textit{deployment} \textit{tenant} baru tanpa harus melakukan duplikasi keseluruhan aplikasi. Konsep transformasi komponen tetap dan komponen spesifik \textit{tenant} yang diusulkan oleh Mietzner et al. \cite{ref8} ditunjukkan pada Gambar \ref{fig:transformasi_komponen_mietzner}.
+\subsection{Directly-Follows Graph (DFG)}
+\textit{Directly-Follows Graph} (DFG) adalah graf berarah yang merangkum relasi urutan langsung antaraktivitas pada \textit{event log}. Setiap simpul mewakili satu aktivitas, sedangkan sebuah busur $a \rightarrow b$ dibentuk bila aktivitas $a$ langsung diikuti aktivitas $b$ dalam suatu \textit{trace}, umumnya disertai bobot frekuensi kemunculan. DFG berperan sebagai struktur antara yang dibaca algoritma \textit{process discovery} untuk menyimpulkan pola proses, namun representasi ini rawan terhadap \textit{noise} ketika log memuat banyak variasi label \cite{augusto2019automated}.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.8\textwidth]{assets/bab2/3.png}
-  \caption{Transformasi Komponen Tetap dan Spesifik \textit{Tenant} (Sumber: Mietzner et al. \cite{ref8})}
-  \label{fig:transformasi_komponen_mietzner}
-\end{figure}
+\subsection{Inductive Miner dan Inductive Miner infrequent (IMf)}
+\textit{Inductive Miner} adalah keluarga algoritma \textit{process discovery} yang membangun model dengan membelah DFG secara rekursif menjadi \textit{process tree}. Pada tiap langkah, algoritma mendeteksi pola pembelahan (\textit{cut}) berupa pilihan eksklusif, urutan, paralel, atau pengulangan, lalu memetakan hasilnya menjadi \textit{Petri net} yang dijamin \textit{sound}. Varian \textit{Inductive Miner infrequent} (IMf) menambahkan \textit{noise filtering} dengan membuang busur DFG yang frekuensinya berada di bawah \textit{noise threshold} tertentu. Nilai \textit{noise threshold} 0 mempertahankan seluruh perilaku, sedangkan nilai yang lebih tinggi menghasilkan model lebih ringkas dengan mengabaikan jalur jarang. Penelitian ini memakai IMf dengan \textit{noise threshold} 0,2 \cite{leemans2013discovering, augusto2019automated}.
 
-Berdasarkan Gambar \ref{fig:transformasi_komponen_mietzner}, komponen yang digunakan bersama oleh seluruh \textit{tenant} ditempatkan pada \textit{fixed contribution}, sedangkan komponen yang memerlukan konfigurasi khusus ditempatkan pada \textit{tenant-specific contribution}. Dengan konsep tersebut, proses \textit{onboarding} \textit{tenant} baru dapat dilakukan dengan menambahkan komponen spesifik \textit{tenant} tanpa perlu melakukan \textit{deployment} ulang terhadap keseluruhan aplikasi. Penelitian ini juga memperkenalkan beberapa pola \textit{multitenancy}, seperti \textit{single instance component}, \textit{single configurable instance component}, dan \textit{multiple instance component} yang digunakan untuk menentukan bagaimana suatu komponen dibagikan antar \textit{tenant}. Hasil penelitian menunjukkan bahwa pemisahan antara komponen tetap dan komponen spesifik \textit{tenant} dapat meningkatkan fleksibilitas konfigurasi sekaligus mengurangi kompleksitas pengelolaan aplikasi \textit{SaaS} \cite{ref8}. Model tersebut menjadi salah satu dasar dalam perancangan mekanisme \textit{provisioning} \textit{tenant} pada penelitian ini karena memungkinkan proses penambahan \textit{tenant} dilakukan secara lebih terstruktur dan konsisten.
+\subsection{Event Abstraction}
+\textit{Event abstraction} adalah proses menyatukan \textit{events} bertingkat rinci menjadi aktivitas bertingkat lebih tinggi yang lebih bermakna, sehingga model proses yang ditemukan menjadi lebih ringkas dan mudah ditafsirkan \cite{tax2016event}. Pada penelitian ini, abstraksi semantik dimaksudkan sebagai bentuk \textit{event abstraction} yang memetakan deskripsi aktivitas mentah ke kategori taksonomi melalui LLM, sebelum model proses dibangun.
 
-Berdasarkan penelitian yang telah dilakukan, perkembangan arsitektur \textit{multitenant} pada aplikasi \textit{SaaS} mencakup berbagai aspek, mulai dari karakteristik dan tantangan implementasi \textit{multitenancy} \cite{ref3,ref4}, model penyimpanan data \textit{tenant} \cite{ref6,ref9}, hingga mekanisme konfigurasi dan \textit{provisioning} \textit{tenant} \cite{ref8}. Berbagai penelitian tersebut menunjukkan bahwa implementasi \textit{multitenancy} memerlukan pengelolaan \textit{tenant} yang baik agar sistem tetap mampu menjaga isolasi data serta mendukung pertumbuhan jumlah \textit{tenant} secara efisien.
+\section{Conformance Checking}
+\textit{Conformance checking} merupakan tahap evaluasi yang mengukur kesesuaian antara model proses yang ditemukan dengan perilaku yang terekam dalam \textit{event log}~\cite{carmona2018conformance}. Empat metrik utama digunakan dalam evaluasi ini, yaitu \textit{fitness}, \textit{precision}, \textit{simplicity}, dan \textit{generalization}, yang dirumuskan sebagai kerangka kualitas model proses oleh Buijs dkk.~\cite{buijs2014quality}.
 
-Meskipun demikian, sebagian besar penelitian berfokus pada aspek tertentu dari arsitektur \textit{multitenant}, seperti model basis data, konfigurasi aplikasi, atau mekanisme \textit{deployment} \textit{tenant}. Integrasi antara mekanisme \textit{tenant identification}, \textit{tenant scoping} pada lapisan aplikasi, serta \textit{provisioning} \textit{tenant} otomatis pada lingkungan \textit{shared database} dan \textit{shared schema} masih memerlukan perhatian lebih karena seluruh \textit{tenant} menggunakan struktur penyimpanan data yang sama. Kondisi tersebut menuntut adanya mekanisme yang mampu menjaga konsistensi identitas \textit{tenant} pada setiap proses akses data tanpa mengurangi efisiensi penggunaan sumber daya.
+\subsection{Fitness}
+\textit{Fitness} merupakan dimensi paling fundamental yang mengukur sejauh mana model proses yang ditemukan mampu mereproduksi \textit{traces} aktivitas yang terekam dalam \textit{event log}. Sebuah model dikatakan memiliki \textit{fitness} sempurna (nilai $1.0$) apabila seluruh \textit{traces} dalam log dapat di-\textit{replay} tanpa penyimpangan~\cite{vanderAalst2016_process_mining}. Secara kuantitatif, nilai \textit{fitness} dihitung menggunakan pendekatan \textit{alignment-based fitness} yang berakar pada analisis kesesuaian berbasis biaya oleh Adriansyah dkk.~\cite{adriansyah2011conformance, adriansyah2012replaying} sebagai berikut:
 
-Berdasarkan penelitian sebelumnya, dapat diketahui bahwa implementasi \textit{multitenancy} telah banyak dibahas pada aspek arsitektur aplikasi, model penyimpanan data, maupun mekanisme \textit{provisioning} \textit{tenant} \cite{ref3,ref4,ref6,ref8,ref9}. Namun, integrasi antara \textit{tenant identification}, \textit{tenant scoping}, dan \textit{tenant provisioning} pada lingkungan \textit{shared database} dan \textit{shared schema} masih memerlukan perhatian lebih untuk menjaga isolasi data dan efisiensi pengelolaan \textit{tenant}. Oleh karena itu, penelitian ini berfokus pada perancangan arsitektur \textit{multitenant} yang mengintegrasikan aspek aspek tersebut pada modul \textit{Asset Management}, \textit{Inventory}, dan \textit{Rental} berbasis \textit{web}.
+\begin{equation}
+    Fitness(L, M) = 1 - \frac{\sum_{\sigma \in L} n(\sigma) \times \delta_{opt}(\sigma, M)}{\sum_{\sigma \in L} n(\sigma) \times c_{wc}(\sigma)}
+    \label{eq:fitness_formula}
+\end{equation}
 
-\section{\textit{Software as a Service} (SaaS)}
+Di mana $n(\sigma)$ adalah frekuensi kemunculan suatu \textit{trace} dalam log, $\delta_{opt}$ merupakan biaya penyelarasan optimal (\textit{alignment cost}), dan $c_{wc}$ adalah biaya terburuk (\textit{worst-case cost})~\cite{adriansyah2012replaying}.
 
-\textit{Software as a Service} (SaaS) merupakan salah satu model layanan dalam komputasi awan yang memungkinkan pengguna mengakses aplikasi melalui jaringan tanpa perlu melakukan instalasi maupun pengelolaan infrastruktur secara mandiri \cite{ref5} \cite{ref10}. Pada model ini, penyedia layanan bertanggung jawab terhadap pengelolaan aplikasi, pembaruan sistem, serta infrastruktur yang digunakan untuk menjalankan layanan.
+\subsection{Precision}
+Berbeda dengan \textit{fitness}, \textit{precision} membalik sudut pandang evaluasi dengan menanyakan sejauh mana perilaku yang dimungkinkan oleh model benar-benar tercatat dalam \textit{event log}~\cite{carmona2018conformance, carmona2022conformance}. Sebuah model dikatakan memiliki \textit{precision} rendah apabila terlalu permisif, yaitu mengizinkan banyak perilaku yang tidak pernah terjadi dalam data aktual~\cite{carmona2018conformance}. Secara kuantitatif, \textit{precision} dihitung menggunakan pendekatan \textit{escaping edges} yang pertama kali dirumuskan Muñoz-Gama dan Carmona~\cite{munozgama2010precision, vanderAalst2016_process_mining} sebagai berikut:
 
-Penerapan \textit{SaaS} memberikan kemudahan bagi organisasi karena aplikasi dapat digunakan secara langsung tanpa memerlukan proses instalasi pada setiap perangkat maupun lingkungan kerja. Selain itu, proses pemeliharaan dan pembaruan aplikasi dapat dilakukan secara terpusat sehingga perubahan yang dilakukan penyedia layanan dapat langsung digunakan oleh seluruh pengguna \cite{ref5}.
+\begin{equation}
+    Precision(L, M) = \frac{1}{|E|} \sum_{e \in E} \frac{|a_L(e)|}{|a_M(e)|}
+    \label{eq:precision_formula}
+\end{equation}
 
-Perkembangan model \textit{SaaS} mendorong kebutuhan terhadap aplikasi yang mampu melayani banyak organisasi secara bersamaan. Kondisi tersebut menjadi salah satu faktor yang mendorong berkembangnya konsep \textit{multitenancy} pada aplikasi modern \cite{ref3}.
+Di mana $E$ adalah himpunan \textit{state} yang dikunjungi, $a_{L}(e)$ merupakan jumlah aktivitas yang terekam dalam log pada \textit{state} tersebut, dan $a_{M}(e)$ adalah jumlah aktivitas yang diizinkan oleh model pada \textit{state} yang sama.
 
-\section{Arsitektur \textit{Multitenant}}
+\subsection{Simplicity}
+\textit{Simplicity} mengukur sejauh mana struktur model proses tetap sederhana dan tidak berlebihan dalam jumlah elemen. Salah satu rumusan yang lazim dipakai dan diterapkan pada PM4Py adalah pendekatan \textit{inverse arc degree}, yang menilai kesederhanaan dari rata-rata derajat keterhubungan simpul \textit{Petri net}~\cite{buijs2014quality, berti2019pm4py}. Bila $\bar{d}$ menyatakan rata-rata derajat busur, yaitu jumlah busur masuk dan keluar seluruh \textit{place} pada model, dan $k$ adalah derajat acuan yang lazimnya bernilai 2, maka \textit{simplicity} dirumuskan sebagai berikut.
 
-\textit{Multitenancy} merupakan pendekatan yang memungkinkan banyak \textit{tenant} menggunakan satu aplikasi yang sama dengan tetap mempertahankan pemisahan data dan konfigurasi masing masing \textit{tenant} \cite{ref3}. Dalam konteks \textit{SaaS}, \textit{tenant} umumnya merepresentasikan organisasi atau pelanggan yang menggunakan layanan yang sama namun memiliki data dan kebutuhan operasional yang berbeda.
+\begin{equation}
+    Simplicity(M) = \frac{1}{1 + \log(\bar{d}/k)}
+    \label{eq:simplicity_formula}
+\end{equation}
 
-Bezemer dan Zaidman \cite{ref3} menjelaskan bahwa penggunaan satu aplikasi untuk melayani banyak \textit{tenant} dapat meningkatkan efisiensi penggunaan sumber daya serta menyederhanakan proses pemeliharaan aplikasi. Namun, konsep tersebut juga menuntut adanya mekanisme yang mampu mengelola \textit{tenant} secara konsisten agar data dan konfigurasi antar \textit{tenant} tidak saling tercampur.
+Nilai mendekati 1 menandakan model sederhana dengan keterhubungan wajar, sedangkan nilai yang menurun menandakan struktur yang makin padat. Model dengan \textit{simplicity} rendah sering disebut sebagai \textit{spaghetti model}, yaitu model yang memiliki struktur sangat ruwet dan sulit dipahami oleh manusia~\cite{vanderAalst2016_process_mining, carmona2018conformance}.
 
-Komponen utama pada arsitektur \textit{multitenant} ditunjukkan pada Gambar \ref{fig:arsitektur_dasar_multitenant}.
+\subsection{Generalization}
+\textit{Generalization} menilai sejauh mana model mampu menangkap perilaku wajar yang mungkin belum terekam pada log, sehingga model tidak \textit{overfitting} terhadap data pelatihan. Buijs dkk.~\cite{buijs2014quality} merumuskan \textit{generalization} dengan memanfaatkan frekuensi kunjungan tiap \textit{transition}. Bila $T_M$ himpunan \textit{transition} pada model dan $n_t$ banyaknya eksekusi \textit{transition} $t$ selama \textit{replay} pada log $L$, maka \textit{generalization} dirumuskan sebagai berikut.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.8\textwidth]{assets/bab2/4.png}
-  \caption{Arsitektur Dasar \textit{Multitenant} (Sumber: Diadaptasi dari Bezemer dan Zaidman \cite{ref3})}
-  \label{fig:arsitektur_dasar_multitenant}
-\end{figure}
+\begin{equation}
+    Generalization(L, M) = \prod_{t \in T_M} \left(1 - \frac{1}{n_t}\right)
+    \label{eq:generalization_formula}
+\end{equation}
 
-Berdasarkan Gambar \ref{fig:arsitektur_dasar_multitenant}, setiap permintaan yang masuk ke sistem terlebih dahulu melalui proses identifikasi \textit{tenant} sebelum diteruskan ke lapisan aplikasi dan basis data. Informasi \textit{tenant} tersebut kemudian digunakan untuk menentukan konfigurasi dan ruang data yang dapat diakses oleh pengguna.
+\textit{Transition} yang sering dieksekusi memberi kontribusi penalti kecil sehingga model dinilai lebih tergeneralisasi, sedangkan \textit{transition} yang jarang dikunjungi menurunkan nilai \textit{generalization}. Pendekatan alternatif berbasis \textit{anti-alignment} yang menyatukan pengukuran \textit{precision} dan \textit{generalization} dikemukakan van Dongen dkk.~\cite{vandongen2016unified}, dan dapat dirujuk sebagai pembanding.
 
-Selain aspek pengelolaan data, Krebs et al. \cite{ref4} mengidentifikasi beberapa perhatian utama dalam implementasi \textit{multitenancy}, yaitu \textit{tenant isolation}, \textit{scalability}, \textit{configurability}, dan \textit{performance isolation}. Aspek aspek tersebut menjadi penting karena seluruh \textit{tenant} menggunakan sumber daya aplikasi yang sama.
+\section{Penelitian Terkait}
+Bagian ini mengulas penelitian terdahulu yang menjadi pijakan metode Tugas Akhir, khususnya mengenai cara kecerdasan buatan bekerja sama dengan \textit{process mining} untuk memperjelas struktur proses. Penekanannya bukan pada penyaringan data, melainkan pada bagaimana makna aktivitas diolah agar model proses yang dihasilkan lebih ringkas dan mudah ditafsirkan.
 
-\section{\textit{Tenant Isolation}}
+\subsection{LLM untuk Menjembatani Pengetahuan Domain dan Process Discovery}
+Norouzifar dkk. menyoroti satu kendala klasik dalam \textit{process discovery} otomatis, yaitu algoritma sering kesulitan memisahkan variasi kerja yang wajar dari catatan yang keliru. Mereka menempatkan LLM sebagai penerjemah yang membaca deskripsi tekstual aturan, lalu mengubahnya menjadi batasan deklaratif sederhana, misalnya keharusan satu aktivitas mendahului aktivitas lain. Batasan itu kemudian memandu algoritma \textit{Inductive Miner} agar membuang jalur proses yang tidak koheren, sehingga model akhir lebih patuh pada logika domain dibandingkan jika hanya bersandar pada \textit{raw data} \cite{norouzifar2024}.
 
-\textit{Tenant isolation} merupakan mekanisme yang digunakan untuk memastikan bahwa data dan aktivitas suatu \textit{tenant} tidak dapat diakses oleh \textit{tenant} lain \cite{ref4}. Pada lingkungan komputasi awan, kegagalan dalam menerapkan isolasi \textit{tenant} dapat menyebabkan kebocoran data dan pelanggaran keamanan antar pelanggan yang menggunakan layanan yang sama \cite{ref11}.
+Pendekatan ini menjadi rujukan langsung karena memakai algoritma penemuan model yang sama dengan Tugas Akhir. Perbedaannya terletak pada peran LLM. Norouzifar dkk. memanfaatkan LLM untuk mengekstrak \textit{constraint} proses, sementara penelitian ini memakai LLM untuk memberi label kategori tindakan pada tiap \textit{event}. Celah yang tersisa jelas, yaitu penyaringan berbasis aturan belum tentu menjawab persoalan utama pada log pemeliharaan, yang justru bersumber dari keberagaman penulisan label aktivitas.
 
-Pada arsitektur \textit{multitenant}, \textit{tenant isolation} dapat diterapkan pada lapisan aplikasi maupun basis data. Pada pendekatan \textit{shared database} dan \textit{shared schema}, seluruh \textit{tenant} menggunakan basis data dan struktur tabel yang sama \cite{ref6,ref9}. Oleh karena itu, identitas \textit{tenant} harus dikelola secara konsisten untuk memastikan setiap pengguna hanya dapat mengakses data yang sesuai dengan \textit{tenant}-nya.
+\subsection{Event Abstraction Berbasis Supervised Learning}
+Tax dkk. menelaah persoalan ketika \textit{events} pada log terlalu rinci sehingga algoritma penemuan menghasilkan model yang kusut dan sukar dibaca. Mereka menunjukkan bahwa struktur proses masih dapat ditemukan apabila log lebih dahulu diabstraksikan ke tingkat granularitas yang lebih tinggi. Untuk itu, mereka memakai teknik \textit{supervised learning}, khususnya \textit{Linear-chain Conditional Random Fields}, dengan memanfaatkan anotasi bermakna pada sebagian \textit{trace} sebagai data latih, lalu merepresentasikan tiap \textit{event} sebagai vektor fitur. Pengujian pada log nyata sebuah lingkungan \textit{smart home} memperlihatkan model proses yang jauh lebih terstruktur setelah abstraksi \cite{tax2016event}.
 
-Pada penelitian ini, \textit{tenant isolation} diterapkan melalui mekanisme identifikasi \textit{tenant} dan pembatasan akses data pada lapisan aplikasi untuk menjaga pemisahan data antar organisasi yang menggunakan sistem.
+Gagasan inilah yang menjadi akar konseptual penelitian ini, sebab abstraksi semantik pada dasarnya merupakan bentuk \textit{event abstraction}. Letak pembedanya ada pada cara abstraksi dilakukan. Tax dkk. menuntut data anotasi terlatih dan model probabilistik klasik, sedangkan Tugas Akhir ini menyandarkan abstraksi semantik pada LLM dengan dua belas kategori taksonomi sebagai batas, tanpa pelatihan ulang. Hal yang belum dijawab oleh Tax dkk. adalah bagaimana abstraksi dapat berjalan ketika label latih tidak tersedia, kondisi yang lazim ditemui pada catatan pemeliharaan lapangan.
 
-\section{\textit{Shared Database} dan \textit{Shared Schema}}
+\subsection{LLM untuk Tugas Process Mining yang Peka Makna}
+Rebmann dkk. menguji secara sistematis sejauh mana model bahasa mampu menyelesaikan tugas \textit{process mining} yang menuntut pemahaman makna aktivitas. Mereka mendefinisikan lima tugas, mencakup dua bentuk deteksi anomali semantik, prediksi aktivitas berikutnya secara semantik, dan dua varian \textit{process discovery} semantik, lalu membandingkan kinerja LLM pada skenario \textit{in-context learning} dengan skenario \textit{fine-tuning}. Temuan utamanya, model bahasa cenderung lemah ketika dipakai apa adanya atau dengan contoh minimal, namun kinerjanya meningkat tajam saat disesuaikan melalui \textit{fine-tuning} lintas beragam jenis proses dan industri \cite{rebmann2025semantics}.
 
-Dalam implementasi aplikasi \textit{multitenant}, terdapat beberapa pendekatan penyimpanan data yang dapat digunakan untuk memisahkan data antar \textit{tenant}. Microsoft Azure Architecture Center \cite{ref7} mengelompokkan model tersebut menjadi \textit{separate database}, \textit{shared database with separate schema}, dan \textit{shared database with shared schema}. Setiap pendekatan memiliki karakteristik yang berbeda dalam aspek isolasi data, kompleksitas pengelolaan, dan penggunaan sumber daya.
+Studi ini menegaskan premis dasar Tugas Akhir, yaitu makna aktivitas memang dapat dieksploitasi LLM untuk kepentingan penemuan proses. Perbedaannya bersifat penerapan. Rebmann dkk. menilai kapabilitas umum LLM lintas \textit{benchmark} dan banyak bersandar pada \textit{fine-tuning}, sementara penelitian ini menerapkan LLM secara langsung untuk abstraksi semantik label aktivitas pada satu domain pemeliharaan pembangkit listrik, lalu mengukur dampaknya terhadap kualitas model melalui perbandingan \textit{as-is} dan \textit{enriched}. Ruang yang belum tergarap adalah penerapan terfokus pada data operasional nyata dengan evaluasi \textit{conformance} yang utuh.
 
-Pada penelitian ini digunakan pendekatan \textit{shared database} dan \textit{shared schema}, dimana seluruh \textit{tenant} menggunakan basis data dan struktur tabel yang sama. Identitas \textit{tenant} digunakan sebagai pembeda data sehingga setiap proses penyimpanan dan pengambilan data dapat dilakukan sesuai dengan \textit{tenant} yang sedang menggunakan sistem \cite{ref6,ref9}. Pendekatan ini dipilih karena mampu mendukung pengelolaan banyak \textit{tenant} dalam satu \textit{platform} dengan penggunaan sumber daya yang lebih efisien.
+\section{Perbandingan Penelitian}
+Berdasarkan tinjauan tersebut, Tabel~\ref{tab:perbandingan-terkait} merangkum posisi Tugas Akhir ini dibandingkan ketiga referensi utama.
 
-\section{\textit{Tenant Provisioning}}
+\begin{table}[htbp]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabularx}{\textwidth}{|p{2.4cm}|X|X|X|X|}
+        \hline
+        \textbf{Aspek} &
+        \textbf{Norouzifar dkk.~\cite{norouzifar2024}} &
+        \textbf{Tax dkk.~\cite{tax2016event}} &
+        \textbf{Rebmann dkk.~\cite{rebmann2025semantics}} &
+        \textbf{Penelitian Ini (TA)} \\
+        \hline
+        \textbf{Fokus Utama} &
+        Penyaringan jalur proses lewat batasan deklaratif hasil ekstraksi LLM &
+        \textit{Event abstraction} dari tingkat rinci ke tingkat bermakna agar model lebih terstruktur &
+        Evaluasi kapabilitas LLM pada lima tugas \textit{process mining} yang bergantung pada makna &
+        Abstraksi semantik berbasis taksonomi via LLM untuk \textit{process discovery} \\
+        \hline
+        \textbf{Metode AI} &
+        LLM mengekstrak \textit{constraint} dari teks secara \textit{zero-shot} &
+        \textit{Supervised learning}, \textit{Linear-chain Conditional Random Fields}, bukan LLM &
+        LLM melalui \textit{in-context learning} dan \textit{fine-tuning} &
+        LLM (\texttt{gemini-3.1-flash-lite}) untuk pelabelan kategori dengan batas taksonomi, tanpa \textit{fine-tuning} \\
+        \hline
+        \textbf{Sumber Pengetahuan} &
+        Deskripsi aturan tekstual dan pengetahuan internal LLM &
+        Anotasi bermakna pada sebagian \textit{trace} sebagai data latih &
+        Pengetahuan terenkode LLM dan \textit{dataset benchmark} &
+        Konteks \textit{event} dari WBS dan \textit{job card}, taksonomi dua belas kategori, dan pengetahuan LLM \\
+        \hline
+        \textbf{Domain dan Data} &
+        Proses bisnis umum &
+        Lingkungan \textit{smart home} berbasis sensor &
+        Lintas industri melalui \textit{dataset benchmark} &
+        Pemeliharaan pembangkit listrik (PLTD), 256 baris pekerjaan \\
+        \hline
+        \textbf{Kontribusi dan Perbedaan} &
+        Model lebih patuh logika domain, namun bertumpu pada ekstraksi aturan &
+        Model lebih terstruktur dari log granular, namun membutuhkan label latih &
+        Membuktikan LLM unggul saat \textit{fine-tuned}, namun berhenti pada evaluasi kapabilitas &
+        Reduksi aktivitas unik dan peningkatan \textit{generalization} melalui abstraksi semantik, disertai komparasi \textit{as-is} dan \textit{enriched} dengan \textit{conformance} \\
+        \hline
+    \end{tabularx}
+    \caption{Perbandingan Penelitian Terkait}
+    \label{tab:perbandingan-terkait}
+\end{table}
 
-\textit{Tenant provisioning} merupakan proses pembuatan dan konfigurasi \textit{tenant} baru agar dapat menggunakan layanan yang tersedia. Mietzner et al. \cite{ref8} menjelaskan bahwa proses \textit{provisioning} diperlukan untuk mengelola konfigurasi \textit{tenant} secara konsisten tanpa memerlukan perubahan pada keseluruhan aplikasi. Proses ini umumnya mencakup pembuatan identitas \textit{tenant}, konfigurasi awal, dan inisialisasi data yang diperlukan sebelum \textit{tenant} mulai menggunakan sistem.
+Benang merah dari ketiga studi memperlihatkan satu celah yang konsisten. Norouzifar dkk. memakai LLM untuk menyusun \textit{constraint}, Tax dkk. mengandalkan \textit{supervised learning} klasik yang menuntut data latih, dan Rebmann dkk. berhenti pada pengukuran kapabilitas lintas \textit{benchmark}. Belum ada yang memadukan abstraksi semantik berbasis taksonomi melalui LLM dengan komparasi model \textit{as-is} dan \textit{enriched} serta pemeriksaan \textit{conformance} pada log pemeliharaan pembangkit listrik. Ruang itulah yang ditempati Tugas Akhir ini.
 
-Pada penelitian ini, \textit{tenant provisioning} digunakan untuk mendukung proses \textit{onboarding} \textit{tenant} baru pada sistem. Dengan mekanisme tersebut, \textit{tenant} dapat didaftarkan dan dikonfigurasi secara otomatis sehingga proses penambahan organisasi baru dapat dilakukan dengan lebih cepat dan konsisten.
-
-\section{\textit{Middleware} dan \textit{Tenant Context}}
-
-\textit{Middleware} merupakan komponen yang digunakan untuk memproses permintaan sebelum diteruskan ke logika aplikasi. Pada arsitektur \textit{multitenant}, \textit{middleware} dapat digunakan untuk mengidentifikasi \textit{tenant} yang sedang mengakses sistem berdasarkan informasi yang dikirimkan pada setiap permintaan \cite{ref7}.
-
-Identitas \textit{tenant} yang diperoleh kemudian disimpan sebagai \textit{tenant context} dan digunakan pada proses berikutnya untuk menentukan ruang lingkup data yang dapat diakses. Dengan cara tersebut, aplikasi dapat menerapkan \textit{tenant isolation} secara konsisten pada setiap permintaan yang diproses.
+\newpage

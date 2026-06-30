@@ -1,183 +1,120 @@
+% !TEX root = ../main.tex
 \chapter{Pendahuluan}
 
 \section{Latar Belakang}
 Pemeliharaan pembangkit listrik merupakan aktivitas penting untuk mempertahankan keandalan alat, kontinuitas operasi, dan ketersediaan sistem produksi energi kedepannya. Sektor ketenagalistrikan saat ini mengalami transformasi digital yang mendorong pemanfaatan data operasional untuk mendukung pengambilan keputusan teknis. Solusi berbasis AI dalam sektor tenaga listrik digunakan pada berbagai area seperti optimisasi sistem, deteksi gangguan, dan predictive maintenance \cite{franki2023ai_power_sector}. Selain itu, penerapan AI pada bidang operation and maintenance juga menjadi salah satu fokus penting karena berkaitan langsung dengan pemeliharaan aset pembangkitan dan infrastruktur tenaga listrik \cite{franki2023ai_power_sector}. Dengan demikian, data pemeliharaan pembangkit listrik memiliki peran strategis sebagai sumber informasi untuk memahami kondisi aktual pekerjaan perawatan dan mendukung evaluasi proses operasional.
 
-\noindent Data pemeliharaan pada sistem ketenagalistrikan tidak hanya berisi catatan administratif, tetapi uuga mempresentasikan aktivitas teknis yang berkaitan dengan kondisi peralatan, riwayat pekerjaan, dan proses perawatan. Data produksi dapat mencakup area electricity, maintenance, dan security, serat berkaitan dengan sistem seperti enterprise asset management, performance analyst, real-time database, safety supervision, dan equipment reliability system \cite{ge2017electric_power_data_mining}. Selain itu pekerjaan overhaul atau pemeliharaan dijelaskan sebagai bagian penting dalam operasi sistem tenaga listrik karena melibatkan status peralatan, analisis kerusakan, serta pengendalian proses pekerjaan melalui order perbaikan \cite{ge2017electric_power_data_mining}.
-Oleh karena itu, catatan pemeliharaan pembangkit listrik relevan untuk diolah sebagai event log agar urutan aktivitas aktual dapat dianalisis menggunakan pendekatan process mining.
+\noindent Data pemeliharaan pada sistem ketenagalistrikan tidak hanya berisi catatan administratif, tetapi juga mempresentasikan aktivitas teknis yang berkaitan dengan kondisi peralatan, riwayat pekerjaan, dan proses perawatan. Data produksi dapat mencakup area \textit{electricity}, \textit{maintenance}, dan \textit{security}, serta berkaitan dengan sistem seperti \textit{enterprise asset management}, \textit{performance analyst}, \textit{real-time database}, \textit{safety supervision}, dan \textit{equipment reliability system} \cite{ge2017electric_power_data_mining}. Selain itu, pekerjaan \textit{overhaul} atau pemeliharaan dijelaskan sebagai bagian penting dalam operasi sistem tenaga listrik karena melibatkan status peralatan, analisis kerusakan, serta pengendalian proses pekerjaan melalui \textit{order} perbaikan \cite{ge2017electric_power_data_mining}.
+Oleh karena itu, catatan pemeliharaan pembangkit listrik relevan untuk diolah sebagai \textit{event log} agar urutan aktivitas aktual dapat dianalisis menggunakan pendekatan \textit{process mining}.
 
-Untuk mengatasi tantangan transparansi proses tersebut, disiplin ilmu Process Mining khususnya teknis Process Discovery menawarkan pendekatan berbasis data untuk merekonstruksi alur kerja aktual secara otomatis dari event logs sistem informasi \cite{vanderAalst2016_process_mining}. Teknik ini bertujuan memvisualisasikan bagaimana proses benar=benar berjalan, bukan sekadar bagaimana proses tersebut didesain. Namun, penerapan algoritma discovery konvensional pada lingkungan pada lingkungan pemeliharaan pembangkit listrik yang kompleks sering kalo terkendala oleh tingginya noise dan variasi pencatatan aktivitas teknis. Akibatnya, model proses yang dihasilkan cenderung rumit(spaghetti models) dan sulit dipahami, karena algoritma standar bekerja secara "buta" terhadap konteks aktivitas pemeliharaan yang tercermin dalam catatan operasional dan deskripsi pekerjaan \cite{augusto2019automated}.
+Untuk mengatasi tantangan transparansi proses tersebut, disiplin ilmu \textit{Process Mining}, khususnya teknik \textit{process discovery}, menawarkan pendekatan berbasis data untuk merekonstruksi alur kerja aktual secara otomatis dari \textit{event logs} sistem informasi \cite{vanderAalst2016_process_mining}. Teknik ini bertujuan memvisualisasikan bagaimana proses benar-benar berjalan, bukan sekadar bagaimana proses tersebut didesain. Namun, penerapan algoritma \textit{discovery} konvensional pada lingkungan pemeliharaan pembangkit listrik yang kompleks sering kali terkendala oleh tingginya \textit{noise} dan variasi pencatatan aktivitas teknis. Akibatnya, model proses yang dihasilkan cenderung rumit (\textit{spaghetti models}) dan sulit dipahami, karena algoritma standar bekerja secara ``buta'' terhadap konteks aktivitas pemeliharaan yang tercermin dalam catatan operasional dan deskripsi pekerjaan \cite{augusto2019automated}.
 
-Perkembangan terkini dalam Generative Artificial Intelligence (GenAI), khususnya Large Language Models (LLM), menghadirkan solusi inovatif untuk menjembatani kesenjangan antara data log dan pengetahuan domain. Riset terbaru menunjukkan bahwa LLM mampu difungsikan sebagai perantara untuk mengekstrak aturan deklaratif dari deskripsi proses tekstual, seperti deskripsi pekerjaan pemeliharaan, dan menggunakannya untuk memandu algoritma process discovery agar menghasilkan model yang lebih presisi \cite{norouzifar2024}. Selain itu, kemampuan GenAI dalam memahami struktur logika proses \cite{graziosi2024} dan menghasilkan data kondisional yang terkontrol \cite{kourani2024} memungkinkan sistem untuk memvalidasi apakah variasi alur kerja yang terjadi di lapangan masih sesuai dengan pola proses pemeliharaan yang logis.
+Perkembangan \textit{Generative Artificial Intelligence} (GenAI), khususnya \textit{Large Language Models} (LLM), membuka cara baru untuk mempertemukan data log dengan pengetahuan domain. Sejumlah studi memanfaatkan LLM sebagai perantara yang mengekstrak aturan dari deskripsi proses tekstual untuk memandu algoritma \textit{process discovery} agar menghasilkan model yang lebih presisi \cite{norouzifar2024}. Arah lain menelaah \textit{event abstraction}, yaitu penyeragaman label aktivitas dari tingkat rinci ke tingkat yang lebih bermakna, dan memperlihatkan bahwa langkah ini memperbaiki keterbacaan model proses \cite{tax2016event}. Kajian terbaru menegaskan model bahasa mampu menangani tugas \textit{process mining} yang bertumpu pada pemahaman makna aktivitas, termasuk \textit{process discovery} itu sendiri \cite{rebmann2025semantics}. Peluang inilah yang diadopsi pada penelitian ini, yakni menstandarkan label aktivitas pemeliharaan sebelum tahap \textit{process discovery} dijalankan, alih-alih sekadar menyaring \textit{raw data}.
 
-Berdasarkan urgensi untuk meningkatkan efisiensi operasional pada proses pemeliharaan pembangkit listrik, penelitian ini berfokus pada pemanfaatan Generative AI untuk mendukung Process Discovery. Integrasi kecerdasan buatan generatif dengan analitik proses diharapkan mampu menghasilkan model alur kerja pemeliharaan pembangkit listrik yang tidak hanya akurat secara data, tetapi juga lebih sederhana, presisi, dan mudah di interpretasikan, sehingga dapat mendukung evaluasi proses serta pengambilan keputusan teknik berbasis data.
+Berdasarkan urgensi untuk meningkatkan efisiensi operasional pada proses pemeliharaan pembangkit listrik, penelitian ini berfokus pada pemanfaatan GenAI untuk mendukung \textit{process discovery}. Integrasi kecerdasan buatan generatif dengan \textit{process mining} diharapkan mampu menghasilkan model alur kerja pemeliharaan yang tidak hanya akurat secara data, tetapi juga lebih sederhana, presisi, dan mudah diinterpretasikan melalui penyeragaman label aktivitas, sehingga dapat mendukung evaluasi proses serta pengambilan keputusan teknik berbasis data.
 
 \section{Perumusan Masalah}
 
 Penelitian ini difokuskan pada pemanfaatan data log yang tersedia. Permasalahan yang akan dijawab adalah
 
 \begin{enumerate}
-    \item Bagaimana memanfaatkan Generative AI untuk menerjemahkan data teks (\textit{description}) pada catatan \textit{maintenance} pembangkit listrik menjadi informasi alur proses yang terstruktur?
-    \item Bagaimana bentuk model proses \textit{maintenance} pembangkit listrik yang dihasilkan dari integrasi antara Generative AI dan algoritma Process Discovery?
-    \item Apakah penggunaan pendekatan ini mampu menghasilkan model proses yang lebih sederhana dan mudah dipahami dibandingkan metode konvensional?
+    \item Bagaimana Generative AI dapat dimanfaatkan untuk menstandarkan ragam label aktivitas pemeliharaan menjadi sejumlah kategori yang konsisten?
+    \item Bagaimana bentuk model proses pemeliharaan yang dihasilkan dari perbandingan \textit{process discovery} pada \textit{event log as-is} dan \textit{event log enriched}?
+    \item Apakah penyeragaman label aktivitas berbasis LLM menghasilkan model proses yang lebih ringkas dibandingkan metode konvensional tanpa anotasi?
 \end{enumerate}
 
 
-\section{Tujuan}
+\section{Batasan Masalah}
 
-Tujuan yang ingin dicapai melalui penelitian ini selaras dengan perumusan masalah di atas, yaitu:
+Untuk menjaga fokus dan konsistensi analisis, penelitian ini dibatasi pada beberapa aspek sebagai berikut. Objek penelitian hanya mencakup satu unit Pembangkit Listrik Tenaga Diesel (PLTD) Titikuning. Sumber data dibatasi pada dokumen \textit{job card} pekerjaan pemeliharaan dan struktur \textit{Work Breakdown Structure} (WBS) dari kegiatan \textit{overhaul} unit PLTD Titikuning. Dengan demikian, temuan yang dihasilkan tidak dimaksudkan untuk digeneralisasikan ke unit pembangkit lain maupun ke jenis pemeliharaan yang berbeda.
 
-\begin{enumerate}
-    \item Mengimplementasikan penggunaan \textit{Large Language Models} (LLM) untuk mengolah atribut teks pada \textit{event log} \textit{maintenance} menjadi aturan logika proses sederhana.
-    \item Memvisualisasikan alur kerja \textit{maintenance} pemangkit listrik menggunakan metode \textit{Process Discovery} yang telah dibantu oleh analisis AI.
-    \item Membandingkan tingkat kompleksitas visual (\textit{spaghetti level}) antara model proses yang dihasilkan metode usulan dengan model dari metode tradisional.
-\end{enumerate}
+Pada tahap anotasi, penelitian ini memanfaatkan model \texttt{gemini-3.1-flash-lite} dengan \textit{temperature} 0,1 agar keluaran bersifat konsisten. \textit{Event} dengan \textit{confidence} di bawah 0,45 diklasifikasikan anomali agar dapat ditinjau ulang. Pada tahap \textit{process discovery}, algoritma yang digunakan dibatasi pada \textit{Inductive Miner infrequent} (IMf) dengan \textit{noise threshold} 0,2 dan diimplementasikan melalui PM4Py. Penstandaran label aktivitas dibatasi pada 12 kategori yang ditetapkan penulis, sehingga penyeragaman dilakukan dalam kerangka taksonomi yang telah ditentukan, bukan secara bebas tanpa batas.
 
 
 \section{Rencana Kegiatan}
-Penelitian ini akan dilaksanakan melalui tahapan-tahapan sebagai berikut:
+
+Penelitian ini dilaksanakan melalui tahapan-tahapan sebagai berikut:
 
 \begin{enumerate}
-
   \item \textbf{Studi Literatur dan Pemahaman Alur}
   \begin{itemize}
-    \item Mempelajari konsep dasar \textit{Process Mining}, khususnya bagaimana algoritma bekerja dalam memetakan data log menjadi gambar alur proses.
-    \item Mendalami kemampuan \textit{Generative AI} (seperti ChatGPT atau LLM lainnya) dalam memahami teks bahasa manusia dan mengubahnya menjadi logika sederhana.
-    \item Mencari informasi umum mengenai alur kerja \textit{maintenance} pesawat di GMF AeroAsia untuk mendapatkan gambaran besar tentang istilah-istilah teknis yang mungkin muncul dalam data (misalnya istilah \textit{released}, \textit{completed}, atau kode \textit{order}), sehingga penulis memiliki bekal pemahaman awal saat melihat data nanti.
+    \item Mempelajari konsep dasar \textit{Process Mining}, khususnya cara algoritma bekerja dalam memetakan data log menjadi model alur proses.
+    \item Mendalami kemampuan \textit{Generative AI}, khususnya \textit{Large Language Model} (LLM), dalam memahami teks bahasa manusia dan mengubahnya menjadi informasi yang terstruktur.
+    \item Mengkaji karakteristik alur kerja pemeliharaan pembangkit listrik, khususnya pekerjaan \textit{overhaul} pada unit Pembangkit Listrik Tenaga Diesel (PLTD), untuk memahami istilah teknis yang muncul dalam data (misalnya pembersihan, pemeriksaan, pengukuran, dan penggantian komponen), sehingga penulis memiliki bekal pemahaman awal terhadap data.
   \end{itemize}
 
   \item \textbf{Pengumpulan dan Pra-pemrosesan Data (Data Preprocessing)}
   \begin{itemize}
-     \item \textbf{Pengumpulan Data:} Mengajukan permohonan pengambilan sampel data catatan \textit{maintenance} (\textit{maintenance log}) dari sistem informasi yang tersedia. Fokus utama adalah mendapatkan data yang memuat setidaknya tiga unsur: nomor pekerjaan, deskripsi pekerjaan (teks), dan waktu pengerjaan.
-    \item \textbf{Penyesuaian Format Data:} Mempelajari struktur data yang diperoleh, lalu melakukan pembersihan data (\textit{data cleaning}) untuk memilah data yang layak olah. Tahap ini meliputi penghapusan data kosong dan penyesuaian format tanggal agar bisa dibaca oleh perangkat lunak.
-    \item \textbf{Pembentukan Event Log:} Mengubah data mentah menjadi format yang dapat dibaca oleh algoritma \textit{Process Mining}. Jika data hanya berupa satu baris per pekerjaan, data akan dipecah menjadi format ``Mulai'' dan ``Selesai'' agar durasi pekerjaan dapat terlihat.
+    \item \textbf{Pengumpulan Data:} Mengumpulkan sampel data catatan pemeliharaan (\textit{maintenance log}) dari sistem informasi yang tersedia. Fokus utama adalah memperoleh data yang memuat setidaknya tiga unsur, yaitu nomor pekerjaan, deskripsi pekerjaan (teks), dan waktu pengerjaan.
+    \item \textbf{Penyesuaian Format Data:} Mempelajari struktur data yang diperoleh, lalu melakukan pembersihan data (\textit{data cleaning}) untuk memilah data yang layak olah. Tahap ini meliputi penghapusan data kosong dan penyesuaian format tanggal agar dapat dibaca oleh perangkat lunak.
+    \item \textbf{Pembentukan Event Log:} Mengubah \textit{raw data} menjadi format yang dapat dibaca oleh algoritma \textit{Process Mining}. Aktivitas majemuk pada satu baris pekerjaan dipecah menjadi beberapa \textit{event} melalui \textit{compound activity splitting}, dan setiap pekerjaan direpresentasikan dengan penanda waktu mulai serta selesai agar durasi pekerjaan dapat terlihat.
   \end{itemize}
 
   \item \textbf{Perancangan Metode dan Prompt Engineering}
   \begin{itemize}
-     \item Merancang serangkaian perintah (\textit{prompt}) untuk \textit{Large Language Model} (LLM) agar dapat membantu membaca kolom deskripsi pekerjaan (yang berupa teks bebas) dan menerjemahkannya ke dalam informasi yang lebih terstruktur.
-    \item Melakukan uji coba \textit{prompt} pada sebagian kecil data untuk memastikan bahwa AI mampu memahami konteks pekerjaan \textit{maintenance} pesawat dengan tepat.
+    \item Merancang serangkaian perintah (\textit{prompt}) untuk \textit{Large Language Model} (LLM) agar dapat membaca kolom deskripsi pekerjaan yang berupa teks bebas dan memetakannya ke dalam kategori tindakan berbasis taksonomi.
+    \item Menguji \textit{prompt} pada sebagian data untuk memastikan model mampu memahami konteks pekerjaan pemeliharaan pembangkit listrik dengan tepat.
   \end{itemize}
 
   \item \textbf{Implementasi Sistem dan Eksperimen}
   \begin{itemize}
-    \item \textbf{Pengembangan Kode Sederhana:} Menulis kode program menggunakan Python untuk menghubungkan data dengan algoritma \textit{Process Mining}.
-    \item \textbf{Pelaksanaan Eksperimen:} Melakukan dua skenario pemodelan:
+    \item \textbf{Pengembangan Kode:} Menulis program menggunakan Python untuk menghubungkan data dengan algoritma \textit{Process Mining}.
+    \item \textbf{Pelaksanaan Eksperimen:} Menjalankan dua skenario pemodelan:
     \begin{enumerate}
-        \item \textit{Skenario 1 (Cara Biasa):} Membuat model proses langsung dari data mentah tanpa bantuan AI.
-        \item \textit{Skenario 2 (Cara Usulan):} Membuat model proses dengan memanfaatkan hasil analisis teks oleh AI untuk menyaring atau mengelompokkan aktivitas.
+      \item \textit{Skenario as-is:} membangun model proses langsung dari \textit{raw data} tanpa anotasi AI.
+      \item \textit{Skenario enriched:} membangun model proses dengan memanfaatkan hasil anotasi kategori tindakan oleh LLM.
     \end{enumerate}
   \end{itemize}
 
-  \item \textbf{Evaluasi dan Validasi Model}
+  \item \textbf{Evaluasi Model}
   \begin{itemize}
-   \item \textbf{Analisis Perbandingan:} Membandingkan model proses dari kedua skenario untuk melihat mana yang lebih rapi, tidak ruwet (mengurangi efek \textit{spaghetti model}), dan lebih mudah dipahami.
-    \item \textbf{Pengukuran Kualitas:} Jika memungkinkan, menggunakan alat ukur standar seperti \textit{Fitness} atau \textit{Precision} untuk memberikan penilaian objektif pada model yang dihasilkan.
+    \item \textbf{Analisis Perbandingan:} Membandingkan model proses dari kedua skenario untuk menilai mana yang lebih ringkas, tidak ruwet (mengurangi efek \textit{spaghetti model}), dan lebih mudah dipahami.
+    \item \textbf{Pengukuran Kualitas:} Mengukur kualitas model menggunakan metrik \textit{conformance}, yaitu \textit{fitness}, \textit{precision}, \textit{generalization}, dan \textit{simplicity}, untuk memberikan penilaian objektif terhadap model yang dihasilkan.
   \end{itemize}
 
   \item \textbf{Analisis Hasil dan Penyusunan Laporan}
   \begin{itemize}
-    \item Menganalisis apakah penggunaan AI benar-benar membantu menyederhanakan pemetaan proses \textit{maintenance} pesawat.
+    \item Menganalisis apakah pemanfaatan AI benar-benar membantu menyederhanakan pemetaan proses pemeliharaan pembangkit listrik.
     \item Mendokumentasikan seluruh proses, tantangan selama pengolahan data, dan hasil temuan ke dalam Laporan Tugas Akhir.
   \end{itemize}
-
 \end{enumerate}
 
 \clearpage
 \section{Jadwal Kegiatan}
 
-Perencanaan direncanakan selesai dalam 6 bulan, untuk rincian kegiatan dapat dilihat pada Tabel \ref{tab:jadwalKegiatan}:
+Penelitian ini diselesaikan dalam enam bulan dengan rincian kegiatan seperti pada Tabel~\ref{tab:jadwalKegiatan}.
 
-\begin{table}[h!]
+\begin{table}[H]
   \centering
   \caption{Jadwal Kegiatan Penelitian Tugas Akhir}
   \label{tab:jadwalKegiatan}
-
-  \begin{tabular}{|c|m{4cm}|*{24}{@{}m{0.01cm}@{}}|}
-    \hline
-    \multirow{2}{*}{\textbf{No}} & 
-    \multirow{2}{*}{\textbf{Kegiatan}} & 
-    \multicolumn{24}{c|}{\textbf{Bulan ke-}} \\
-    \hhline{~~------------------------}
-    & & \multicolumn{4}{c|}{\textbf{1}}
-      & \multicolumn{4}{c|}{\textbf{2}}
-      & \multicolumn{4}{c|}{\textbf{3}}
-      & \multicolumn{4}{c|}{\textbf{4}}
-      & \multicolumn{4}{c|}{\textbf{5}}
-      & \multicolumn{4}{c|}{\textbf{6}} \\ 
-    \hline
-
-    % ================== BARIS 1 ==================
-    1 & Studi Literatur 
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {} \\
-    \hline
-
-    % ================== BARIS 2 ==================
-    2 & Pengumpulan Data
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {} \\
-    \hline
-
-    % ================== BARIS 3 ==================
-    3 & Pra-pemrosesan Data
-    & {} & {} & {} & {}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {} \\
-    \hline
-
-    % ================== BARIS 4 ==================
-    4 & Perancangan Mekanisme Berbasis Generative AI
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {} \\
-    \hline
-
-    % ================== BARIS 5 ==================
-    5 & Integrasi dengan Algoritma Process Discovery
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & {} & {}
-    & {} & {} & {} & {} \\
-    \hline
-
-    % ================== BARIS 6 ==================
-    6 & Evaluasi Model Proses
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & {} \\
-    \hline
-
-    % ================== BARIS 7 ==================
-    7 & Penyusunan Laporan
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & {} & {} & {} & {}
-    & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} \\
-    \hline
-
-  \end{tabular}
+  \footnotesize
+  \renewcommand{\arraystretch}{1.5}
+  {\setlength{\tabcolsep}{3pt}
+  \newcommand{\x}{\cellcolor{blue!30}}
+  \begin{tabularx}{\textwidth}{|c|X|*{6}{p{0.25cm}p{0.25cm}p{0.25cm}p{0.25cm}|}}
+  \hline
+  \multirow{2}{*}{\textbf{No}} &
+  \multirow{2}{*}{\textbf{Kegiatan}} &
+  \multicolumn{24}{c|}{\textbf{Bulan ke-}} \\
+  \cline{3-26}
+   & &
+  \multicolumn{4}{c|}{\textbf{1}} &
+  \multicolumn{4}{c|}{\textbf{2}} &
+  \multicolumn{4}{c|}{\textbf{3}} &
+  \multicolumn{4}{c|}{\textbf{4}} &
+  \multicolumn{4}{c|}{\textbf{5}} &
+  \multicolumn{4}{c|}{\textbf{6}} \\
+  \hline
+  1 & Studi Literatur            & \x & \x & \x &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    \\ \hline
+  2 & Pengumpulan Data           & \x & \x & \x & \x & \x & \x &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    \\ \hline
+  3 & Pra-pemrosesan Data        &    &    &    &    & \x & \x & \x & \x & \x & \x &    &    &    &    &    &    &    &    &    &    &    &    &    &    \\ \hline
+  4 & Perancangan Mekanisme Berbasis Generative AI/LLM &    &    &    &    &    &    &    &    & \x & \x & \x & \x & \x & \x &    &    &    &    &    &    &    &    &    &    \\ \hline
+  5 & Integrasi dengan Algoritma Process Discovery     &    &    &    &    &    &    &    &    &    &    &    &    & \x & \x & \x & \x & \x & \x &    &    &    &    &    &    \\ \hline
+  6 & Evaluasi Model Proses      &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    & \x & \x & \x & \x & \x & \x & \x &    \\ \hline
+  7 & Penyusunan Laporan         &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    &    & \x & \x & \x \\ \hline
+  \end{tabularx}
+  }
 \end{table}
 
 \newpage

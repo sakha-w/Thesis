@@ -2,9 +2,11 @@
   "files.autoSave": "afterDelay",
   "files.autoSaveDelay": 1000,
   "latex-workshop.chktex.enabled": true,
-  "latex-workshop.latex.autoBuild.run": "onFileChange",
+  "latex-workshop.latex.autoBuild.run": "onSave",
   "latex-workshop.latex.watch.files.interval": 1000,
+  "latex-workshop.latex.watch.usePolling": true,
   "latex-workshop.latex.outDir": "%DIR%/build",
+  "latex-workshop.latex.rootFile": "main.tex",
   "latex-workshop.latex.recipe.default": "xelatex -> bibtex -> xelatex x2",
   "latex-workshop.latex.recipes": [
     {
@@ -24,7 +26,7 @@
     {
       "name": "xelatex",
       "command": "xelatex",
-      "args": ["-synctex=1", "-interaction=nonstopmode", "-file-line-error", "-output-directory=%OUTDIR%", "%DOC%"]
+      "args": ["-synctex=1", "-interaction=nonstopmode", "-file-line-error", "-output-directory=%OUTDIR%", "-include-directory=%OUTDIR%", "%DOC%"]
     },
     {
       "name": "bibtex",

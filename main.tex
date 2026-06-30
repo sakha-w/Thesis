@@ -15,7 +15,6 @@
 \usepackage{graphicx}
 \graphicspath{{assets/}}
 \usepackage{amsmath, amssymb, amsthm}
-\usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{parskip}
 \usepackage{fancyhdr}
@@ -33,11 +32,13 @@
 \usepackage{xcolor}
 \usepackage{colortbl} % colored table cells
 \usepackage{float}    % [H] placement
+\usepackage{seqsplit} % break long monospace strings
 
 \usepackage{listings}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage[numbers,square,sort&compress]{natbib}
+\usepackage{hyperref}
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows.meta, shapes.geometric}
 % \usepackage{lipsum} % sudah tidak digunakan
@@ -107,10 +108,17 @@
 \renewcommand{\cftchappresnum}{BAB }
 \renewcommand{\cftchapaftersnum}{}
 \setlength{\cftchapnumwidth}{3em}
-% TOC: kurangi margin atas/bawah antar entry
-\setlength{\cftbeforechapskip}{4pt}
-\setlength{\cftbeforesecskip}{2pt}
-\setlength{\cftbeforesubsecskip}{1pt}
+% Aktifkan titik-titik (leader dots) pada entri bab di daftar isi
+\renewcommand{\cftchapdotsep}{\cftdotsep}
+% TOC: kurangi jarak antar entry
+\setlength{\cftbeforechapskip}{1pt}
+\setlength{\cftbeforesecskip}{0pt}
+\setlength{\cftbeforesubsecskip}{0pt}
+\setlength{\cftbeforefigskip}{1pt}
+\setlength{\cftbeforetabskip}{1pt}
+\setlength{\cftfigindent}{0pt}
+\setlength{\cfttabindent}{0pt}
+\setlength{\cftparskip}{0pt}
 % TOC title spacing
 \setlength{\cftbeforetoctitleskip}{0pt}
 \setlength{\cftaftertoctitleskip}{12pt}
@@ -183,13 +191,24 @@
 \input{chapters/kata_pengantar}
 
 \clearpage
+\begingroup
+\singlespacing
 \tableofcontents
+\endgroup
 \clearpage
+\phantomsection
 \addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
+\begingroup
+\singlespacing
 \listoffigures
+\endgroup
 \clearpage
+\phantomsection
 \addcontentsline{toc}{chapter}{DAFTAR TABEL}
+\begingroup
+\singlespacing
 \listoftables
+\endgroup
 \clearpage
 
 %------------------------------------------------------------------------------
