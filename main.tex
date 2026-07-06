@@ -22,6 +22,11 @@
 \usepackage{tocloft}
 \usepackage{etoolbox}
 \usepackage{caption}
+\captionsetup[table]{skip=6pt}
+\AtBeginEnvironment{table}{%
+  \small
+  \setlength{\tabcolsep}{4pt}%
+}
 \usepackage{subcaption}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -29,6 +34,7 @@
 \usepackage{hhline}
 \usepackage{multirow}
 \usepackage{array} % m{} column type for vertical centering
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 \usepackage{xcolor}
 \usepackage{colortbl} % colored table cells
 \usepackage{float}    % [H] placement
@@ -66,7 +72,9 @@
   colorlinks = true,
   linkcolor  = black,
   citecolor  = black,
-  urlcolor   = blue,
+  urlcolor   = black,
+  filecolor  = black,
+  menucolor  = black,
   pdftitle   = {Pemanfaatan Generative AI untuk Process Discovery pada Data Operasional Pemeliharaan Perusahaan Listrik},
   pdfauthor  = {Sakha Wibisono},
 }

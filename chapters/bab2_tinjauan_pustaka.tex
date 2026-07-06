@@ -95,14 +95,23 @@ Berdasarkan tinjauan tersebut, Tabel~\ref{tab:perbandingan-terkait} merangkum po
 
 \begin{table}[htbp]
     \centering
-    \small
-    \renewcommand{\arraystretch}{1.4}
-    \begin{tabularx}{\textwidth}{|p{2.4cm}|X|X|X|X|}
+    \caption{Perbandingan Penelitian Terkait}
+    \label{tab:perbandingan-terkait}
+    \footnotesize
+    \setlength{\tabcolsep}{3pt}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabularx}{\textwidth}{|
+        >{\raggedright\arraybackslash}p{2.5cm}
+        >{\raggedright\arraybackslash}Y
+        >{\raggedright\arraybackslash}Y
+        >{\raggedright\arraybackslash}Y
+        >{\raggedright\arraybackslash}Y|
+    }
         \hline
         \textbf{Aspek} &
-        \textbf{Norouzifar dkk.~\cite{norouzifar2024}} &
-        \textbf{Tax dkk.~\cite{tax2016event}} &
-        \textbf{Rebmann dkk.~\cite{rebmann2025semantics}} &
+        \textbf{Norouzifar dkk.}~\cite{norouzifar2024} &
+        \textbf{Tax dkk.}~\cite{tax2016event} &
+        \textbf{Rebmann dkk.}~\cite{rebmann2025semantics} &
         \textbf{Penelitian Ini (TA)} \\
         \hline
         \textbf{Fokus Utama} &
@@ -115,7 +124,7 @@ Berdasarkan tinjauan tersebut, Tabel~\ref{tab:perbandingan-terkait} merangkum po
         LLM mengekstrak \textit{constraint} dari teks secara \textit{zero-shot} &
         \textit{Supervised learning}, \textit{Linear-chain Conditional Random Fields}, bukan LLM &
         LLM melalui \textit{in-context learning} dan \textit{fine-tuning} &
-        LLM (\texttt{gemini-3.1-flash-lite}) untuk pelabelan kategori dengan batas taksonomi, tanpa \textit{fine-tuning} \\
+        LLM (\texttt{\seqsplit{gemini-3.1-flash-lite}}) untuk pelabelan kategori dengan batas taksonomi, tanpa \textit{fine-tuning} \\
         \hline
         \textbf{Sumber Pengetahuan} &
         Deskripsi aturan tekstual dan pengetahuan internal LLM &
@@ -136,8 +145,6 @@ Berdasarkan tinjauan tersebut, Tabel~\ref{tab:perbandingan-terkait} merangkum po
         Reduksi aktivitas unik dan peningkatan \textit{generalization} melalui abstraksi semantik, disertai komparasi \textit{as-is} dan \textit{enriched} dengan \textit{conformance} \\
         \hline
     \end{tabularx}
-    \caption{Perbandingan Penelitian Terkait}
-    \label{tab:perbandingan-terkait}
 \end{table}
 
 Benang merah dari ketiga studi memperlihatkan satu celah yang konsisten. Norouzifar dkk. memakai LLM untuk menyusun \textit{constraint}, Tax dkk. mengandalkan \textit{supervised learning} klasik yang menuntut data latih, dan Rebmann dkk. berhenti pada pengukuran kapabilitas lintas \textit{benchmark}. Belum ada yang memadukan abstraksi semantik berbasis taksonomi melalui LLM dengan komparasi model \textit{as-is} dan \textit{enriched} serta pemeriksaan \textit{conformance} pada log pemeliharaan pembangkit listrik. Ruang itulah yang ditempati Tugas Akhir ini.

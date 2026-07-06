@@ -2,7 +2,7 @@
 
 \section{Hasil Preprocessing}
 
-Tahap \textit{preprocessing} berhasil mengubah 256 baris \textit{raw data} menjadi \textit{event log} yang siap dianalisis. Dari proses ini teridentifikasi 52 \textit{cases} pemeliharaan, dengan empat \textit{cases} di antaranya terbentuk melalui pembangkitan \textit{Case ID} otomatis yang mencakup 21 baris pekerjaan. \textit{Compound activity splitting} menambah jumlah \textit{event} dari 255 pada \textit{event log as-is} menjadi 308 pada \textit{event log enriched}, sedangkan imputasi \textit{timestamp} dilakukan pada 110 \textit{event}. Ringkasan hasil tahap ini disajikan pada Tabel \ref{tab:ringkasan-preprocessing}.
+Tahap \textit{preprocessing} mengubah 256 baris \textit{raw data} menjadi \textit{event log} yang siap dianalisis. Dari tahap ini teridentifikasi 52 \textit{case} pemeliharaan, empat di antaranya terbentuk melalui pembangkitan \textit{Case ID} otomatis yang mencakup 21 baris pekerjaan. \textit{Compound activity splitting} menaikkan jumlah \textit{event} dari 255 pada \textit{event log as-is} menjadi 308 pada \textit{event log enriched}, sementara imputasi \textit{timestamp} menyentuh 110 \textit{event}. Ringkasan tahap ini disajikan pada Tabel~\ref{tab:ringkasan-preprocessing}.
 
 \begin{table}[H]
 \centering
@@ -14,7 +14,7 @@ Tahap \textit{preprocessing} berhasil mengubah 256 baris \textit{raw data} menja
 \midrule
 Baris \textit{raw data} & 256 \\
 Jumlah \textit{cases} & 52 \\
-\textit{Cases} hasil pembangkitan otomatis & 4 (21 baris) \\
+\textit{Cases} AUTO GENERATED       & 4 (21 baris) \\
 \textit{Event} pada \textit{event log as-is} & 255 \\
 \textit{Event} pada \textit{event log enriched} & 308 \\
 \textit{Timestamp} yang diimputasi & 110 \\
@@ -25,16 +25,18 @@ Jumlah \textit{cases} & 52 \\
 
 \section{Hasil Anotasi LLM}
 
-Hasil abstraksi semantik menunjukkan bahwa model bahasa berhasil memberi anotasi pada seluruh 308 \textit{events} di 52 \textit{cases} tanpa harus jatuh ke mekanisme cadangan berbasis aturan. Seluruh \textit{events} terdistribusi ke dalam dua belas kategori \texttt{action\_type}. Empat kategori dengan frekuensi tertinggi adalah INSPECTION dan TESTING yang masing-masing mencakup 53 \textit{events}, diikuti CLEANING dan SAFETY\_INDUCTION yang masing-masing mencakup 52 \textit{events}. Pola ini sejalan dengan karakteristik pekerjaan \textit{overhaul} yang didominasi oleh pemeriksaan, pengujian, pembersihan, serta pengarahan keselamatan. Sebaliknya, kategori seperti REPAIR, OTHER, dan LUBRICATION muncul dengan frekuensi rendah karena sifat pekerjaannya yang lebih jarang. Distribusi lengkap disajikan pada Tabel \ref{tab:distribusi-action-type}.
+Model bahasa memberi anotasi pada seluruh 308 \textit{event} di 52 \textit{case}. Seluruh \textit{event} terdistribusi ke dalam dua belas kategori \texttt{action\_type}. INSPECTION dan TESTING menempati frekuensi tertinggi dengan masing-masing 53 \textit{event}, diikuti CLEANING dan SAFETY\_INDUCTION yang masing-masing mencakup 52 \textit{event}. Komposisi ini mencerminkan karakteristik pekerjaan \textit{overhaul} yang didominasi pemeriksaan, pengujian, pembersihan, dan pengarahan keselamatan. Sebaliknya, REPAIR, OTHER, dan LUBRICATION muncul jarang sesuai sifat pekerjaannya. Distribusi lengkap disajikan pada Tabel~\ref{tab:distribusi-action-type}.
 
 \begin{table}[H]
 \centering
 \caption{Distribusi Action Type pada Event Log Enriched}
 \label{tab:distribusi-action-type}
-\small
-\begin{tabular}{lrrr}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}l r r r@{}}
 \toprule
-\textbf{Action Type} & \textbf{Jumlah \textit{Event}} & \textbf{Persentase} & \textbf{Rerata \textit{Confidence}} \\
+\textbf{Action Type} & \textbf{Jumlah \textit{Event}} & \textbf{Persentase} & \textbf{Rerata \textit{Conf.}} \\
 \midrule
 INSPECTION & 53 & 17,21\% & 0,93 \\
 TESTING & 53 & 17,21\% & 0,96 \\
@@ -54,18 +56,27 @@ LUBRICATION & 1 & 0,32\% & 0,90 \\
 \end{tabular}
 \end{table}
 
-% [Placeholder Gambar 4.1] Diagram batang distribusi action_type pada event log enriched (gunakan grafik dari sel visualisasi notebook).
-
-Selain kategori tindakan, model juga mengembalikan atribut anotasi lain untuk tiap \textit{event}, yaitu nama komponen, subsistem, area WBS, tingkat \textit{confidence}, \textit{semantic basis}, serta indikator apakah \textit{event} merupakan hasil \textit{compound activity splitting}. Contoh hasil anotasi ditampilkan pada Tabel~\ref{tab:contoh-anotasi}.
+Di luar kategori tindakan, model mengembalikan atribut kontekstual untuk tiap \textit{event}, meliputi nama komponen, subsistem, area WBS, tingkat \textit{confidence}, \textit{semantic basis}, dan penanda hasil \textit{compound activity splitting}. Contoh hasil anotasi ditampilkan pada Tabel~\ref{tab:contoh-anotasi}.
 
 \begin{table}[H]
 \centering
 \caption{Contoh Hasil Anotasi Aktivitas}
 \label{tab:contoh-anotasi}
-\footnotesize
-\begin{tabularx}{\textwidth}{l p{3.5cm} l X X c}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{
+  >{\raggedright\arraybackslash}p{1.45cm}
+  >{\raggedright\arraybackslash}p{2.55cm}
+  >{\raggedright\arraybackslash}p{2.1cm}
+  @{\hspace{14pt}}
+  >{\raggedright\arraybackslash}p{1.7cm}
+  >{\raggedright\arraybackslash}p{2.1cm}
+  @{\hspace{14pt}}
+  >{\centering\arraybackslash}p{0.7cm}
+}
 \toprule
-\textbf{case\_id} & \textbf{activity (\textit{raw data})} & \textbf{action\_type} & \textbf{component} & \textbf{sub\_system} & \textbf{conf} \\
+\textbf{Case ID} & \textbf{Aktivitas (\textit{raw})} & \textbf{Action Type} & \textbf{Komponen} & \textbf{Sub-sistem} & \textbf{Conf.} \\
 \midrule
 AUTO\_001 & Safety Induction & SAFETY\_INDUCTION & GENERAL & GENERAL & 1,00 \\
 AUTO\_001 & PEMBERSIHAN & CLEANING & GENERAL & GENERAL & 0,95 \\
@@ -74,69 +85,75 @@ AUTO\_002 & IR Test & MEASUREMENT & PANEL 52G & ELECTRICAL\_AUX & 1,00 \\
 AUTO\_004 & LEPAS THERMOSTAT & DISASSEMBLY & THERMOSTAT & COOLING\_SYSTEM & 1,00 \\
 AUTO\_004 & PEMASANGAN THERMOSTAT & ASSEMBLY & THERMOSTAT & COOLING\_SYSTEM & 1,00 \\
 \bottomrule
-\end{tabularx}
+\end{tabular}
 \end{table}
 
 \section{Hasil Process Discovery}
 
-Kedua skenario menghasilkan \textit{Petri net} dengan karakteristik yang sangat berbeda. Perbedaan paling mencolok terletak pada jumlah aktivitas unik yang menjadi dasar model. Ringkasan ukuran model disajikan pada Tabel \ref{tab:perbandingan-ukuran-model}.
+Kedua skenario menghasilkan \textit{Petri net} dengan karakteristik yang jauh berbeda, terutama pada jumlah aktivitas unik yang menjadi basis model. Ringkasan ukuran kedua model disajikan pada Tabel~\ref{tab:perbandingan-ukuran-model}.
 
 \begin{table}[H]
 \centering
 \caption{Perbandingan Ukuran Model As-Is dan Enriched AI}
 \label{tab:perbandingan-ukuran-model}
-\begin{tabular}{lrrrr}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}l r r r r@{}}
 \toprule
 \textbf{Metrik} & \textbf{As-Is} & \textbf{Enriched AI} & $\boldsymbol{\Delta}$ & \textbf{Perubahan} \\
 \midrule
-Cases & 52 & 52 & 0 & 0,00\% \\
+Cases & 52 & 52 & +0 & +0,00\% \\
 Events & 255 & 308 & +53 & +20,78\% \\
 Activities & 112 & 12 & $-$100 & $-$89,29\% \\
-Variants & 36 & 29 & $-$7 & $-$19,44\% \\
-Places & 82 & 27 & $-$55 & $-$67,07\% \\
-Transitions & 117 & 35 & $-$82 & $-$70,09\% \\
+Variants & 36 & 30 & $-$6 & $-$16,67\% \\
+Places & 81 & 31 & $-$50 & $-$61,73\% \\
+Transitions & 119 & 43 & $-$76 & $-$63,87\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Model As-Is}
 
-Model \textit{as-is} dibangun dari 112 label aktivitas unik yang berasal langsung dari \textit{raw activity descriptions}. Banyaknya label ini menghasilkan struktur model yang besar dan padat, yaitu 82 \textit{place} dan 117 \textit{transition}, serta 36 varian \textit{traces}. Model semacam ini sulit dibaca karena satu jenis tindakan dapat terwakili oleh banyak label berbeda akibat keragaman penulisan teknisi.
+Model \textit{as-is} dibangun dari 112 label aktivitas unik yang berasal langsung dari \textit{raw activity description}. Banyaknya label menghasilkan struktur padat, yaitu 81 \textit{place}, 119 \textit{transition}, dan 36 varian \textit{trace}. Struktur semacam ini sukar dibaca karena satu tindakan yang sama terwakili oleh banyak label akibat keragaman penulisan teknisi. Gambar~\ref{fig:petri_asis} memperlihatkan model \textit{spaghetti} yang terbentuk.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{bab4/petri_net_asis.png}
+    \hspace*{-1.2cm}\makebox[\textwidth][c]{\includegraphics[width=1.5\textwidth]{bab4/petri_net_asis_2.png}}
     \caption{Visualisasi Petri Net Model As-Is}
     \label{fig:petri_asis}
 \end{figure}
 
 \subsection{Model Enriched AI}
 
-Model \textit{enriched} dibangun dari hanya 12 kategori \texttt{action\_type}. Abstraksi ini memangkas jumlah aktivitas unik sebesar 89,29\% dan menyusutkan struktur model menjadi 27 \textit{place} dan 35 \textit{transition}, dengan 29 varian \textit{traces}. Model yang dihasilkan jauh lebih ringkas sehingga alur proses pemeliharaan dapat dibaca dengan lebih mudah, meskipun jumlah \textit{events} justru bertambah akibat \textit{compound activity splitting}.
+Model \textit{enriched} dibangun dari dua belas kategori \texttt{action\_type}. Abstraksi ini memangkas aktivitas unik sebesar 89,29\% dan menyusutkan struktur menjadi 31 \textit{place}, 43 \textit{transition}, dan 30 varian \textit{trace}. Alur pemeliharaan menjadi terbaca meskipun jumlah \textit{event} justru bertambah akibat \textit{compound activity splitting}. Gambar~\ref{fig:petri_enriched} menampilkan modelnya.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{bab4/petri_net_enriched.png}
+    \hspace*{-1cm}\makebox[\textwidth][c]{\includegraphics[width=1.42\textwidth]{bab4/petri_net_enriched_2.png}}
     \caption{Visualisasi Petri Net Model Enriched AI}
     \label{fig:petri_enriched}
 \end{figure}
 
-Untuk melihat keterhubungan antar tindakan pada model \textit{enriched}, Tabel \ref{tab:dfg-teratas} menampilkan pasangan DFG dengan frekuensi tertinggi. Pola ini memperlihatkan alur khas pekerjaan pemeliharaan, mulai dari pengarahan keselamatan, pengukuran, pembersihan, pemeriksaan, hingga pengujian akhir.
+Untuk membaca keterhubungan antar tindakan, Tabel~\ref{tab:dfg-teratas} menyajikan enam relasi \textit{directly-follows} (DFG) berfrekuensi tertinggi beserta rata-rata selang penyelesaiannya. Pola ini menegaskan alur baku pekerjaan, mulai dari pengarahan keselamatan, pengukuran, pembersihan, dan pemeriksaan, hingga pengujian akhir.
 
 \begin{table}[H]
 \centering
 \caption{DFG (Enriched AI)}
 \label{tab:dfg-teratas}
-\begin{tabular}{llrr}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}l l r r@{}}
 \toprule
-\textbf{Dari} & \textbf{Ke} & \textbf{Frekuensi} & \textbf{Rerata Jeda (jam)} \\
+\textbf{Dari} & \textbf{Ke} & \textbf{Frekuensi} & \textbf{Jeda (jam)} \\
 \midrule
-CLEANING & INSPECTION & 22 & 12,48 \\
-MEASUREMENT & CLEANING & 19 & 20,51 \\
-SAFETY\_INDUCTION & MEASUREMENT & 18 & 7,54 \\
-INSPECTION & TESTING & 15 & 11,33 \\
-SAFETY\_INDUCTION & CLEANING & 14 & 10,30 \\
-SAFETY\_INDUCTION & INSPECTION & 12 & 17,95 \\
+CLEANING & INSPECTION & 21 & 6,25 \\
+MEASUREMENT & CLEANING & 19 & 13,44 \\
+SAFETY\_INDUCTION & MEASUREMENT & 18 & 7,04 \\
+INSPECTION & TESTING & 16 & 1,47 \\
+SAFETY\_INDUCTION & CLEANING & 13 & 18,53 \\
+SAFETY\_INDUCTION & INSPECTION & 13 & 8,13 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -147,38 +164,105 @@ SAFETY\_INDUCTION & INSPECTION & 12 & 17,95 \\
 
 \subsection{Conformance Checking}
 
-Kualitas kedua model diukur melalui empat dimensi \textit{conformance}, yaitu \textit{fitness}, \textit{precision}, \textit{generalization}, dan \textit{simplicity}. Hasil pengukuran disajikan pada Tabel~\ref{tab:perbandingan-conformance}.
+Kualitas kedua model diukur pada empat dimensi \textit{conformance}, yaitu \textit{fitness}, \textit{precision}, \textit{generalization}, dan \textit{simplicity}. Hasil pengukuran disajikan pada Tabel~\ref{tab:perbandingan-conformance}.
 
 \begin{table}[H]
 \centering
 \caption{Perbandingan Conformance As-Is dan Enriched AI}
 \label{tab:perbandingan-conformance}
-\begin{tabular}{lrrr}
+\footnotesize
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}l r r r@{}}
 \toprule
 \textbf{Metrik} & \textbf{As-Is} & \textbf{Enriched AI} & $\boldsymbol{\Delta}$ \\
 \midrule
-Fitness & 0,9968 & 0,9590 & $-$0,0378 \\
-Precision & 0,8821 & 0,4729 & $-$0,4092 \\
-Generalization & 0,0670 & 0,7267 & $+$0,6597 \\
-Simplicity & 0,7398 & 0,6596 & $-$0,0802 \\
+Fitness & 0,9833 & 0,9570 & $-$0,0263 \\
+Precision & 0,8716 & 0,5063 & $-$0,3653 \\
+Generalization & 0,0807 & 0,7079 & $+$0,6272 \\
+Simplicity & 0,7246 & 0,6727 & $-$0,0519 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 % [Placeholder Gambar 4.5] Radar chart atau diagram batang perbandingan metrik conformance As-Is vs Enriched AI.
 
-Hasil \textit{conformance} memperlihatkan adanya pertukaran nilai yang menarik antara kedua model. Model \textit{as-is} unggul pada \textit{fitness} dan \textit{precision} yang sangat tinggi, namun keunggulan itu wajar karena model dibangun dari 112 \textit{raw labels} yang nyaris memetakan setiap \textit{events} secara satu per satu. Akibatnya, model \textit{as-is} mengalami \textit{overfitting} terhadap data, terlihat dari nilai \textit{generalization} yang sangat rendah, yaitu 0,0670. Model seperti ini menghafal \textit{traces} yang ada, tetapi rapuh ketika menghadapi perilaku baru.
+Hasil ini memperlihatkan pertukaran nilai yang khas antara kedua model. Model \textit{as-is} unggul pada \textit{fitness} (0,9833) dan \textit{precision} (0,8716), namun keunggulan tersebut wajar karena model dibangun dari 112 \textit{raw label} yang nyaris memetakan setiap \textit{event} satu per satu. Konsekuensinya, model \textit{as-is} \textit{overfitting} terhadap data, tampak dari \textit{generalization} yang sangat rendah, yaitu 0,0807. Model semacam ini menghafal \textit{trace} yang ada tetapi rapuh ketika menghadapi perilaku baru.
 
-Model \textit{enriched} menempuh arah yang berbeda: abstraksi dua belas kategori menurunkan \textit{precision} menjadi 0,4729 dan sedikit menurunkan \textit{fitness} menjadi 0,9590, tetapi melonjakkan \textit{generalization} menjadi 0,7267. Lonjakan ini menandakan model jauh lebih mampu menangani variasi proses yang wajar tanpa harus melihat setiap kemungkinan \textit{traces}, sementara \textit{fitness} yang tetap tinggi menunjukkan model masih sanggup me-\textit{replay} hampir seluruh \textit{traces} aktual pemeliharaan.
+Model \textit{enriched} menempuh arah yang berbeda. Abstraksi dua belas kategori menurunkan \textit{precision} menjadi 0,5063 dan sedikit menurunkan \textit{fitness} menjadi 0,9570, tetapi menaikkan \textit{generalization} menjadi 0,7079. Kenaikan ini mengindikasikan model lebih mampu mengakomodasi variasi proses yang wajar tanpa harus melihat setiap kemungkinan \textit{trace}, sedangkan \textit{fitness} yang tetap tinggi menunjukkan model masih me-\textit{replay} hampir seluruh \textit{trace} aktual pemeliharaan.
 
 \subsection{Kesederhanaan dan Keterbacaan Model Proses}
 
-Penilaian kesederhanaan model menuntut kehati-hatian karena metrik \textit{simplicity} PM4Py justru turun dari 0,7398 pada model \textit{as-is} menjadi 0,6596 pada model \textit{enriched}. Penurunan tersebut tidak bertentangan dengan klaim keterbacaan. Metrik \textit{simplicity} PM4Py mengukur rata-rata derajat keterhubungan (\textit{arc degree}) tiap simpul pada \textit{Petri net}, sehingga nilainya menurun ketika abstraksi memunculkan struktur percabangan dan paralelisme yang lebih eksplisit di antara dua belas kategori tindakan. Dengan kata lain, metrik ini sensitif terhadap kepadatan koneksi lokal, bukan terhadap ukuran model secara keseluruhan.
+Penilaian kesederhanaan menuntut kehati-hatian karena metrik \textit{simplicity} PM4Py justru turun dari 0,7246 pada model \textit{as-is} menjadi 0,6727 pada model \textit{enriched}. Penurunan tersebut tidak bertentangan dengan klaim keterbacaan. Metrik ini mengukur rata-rata derajat keterhubungan (\textit{arc degree}) tiap simpul pada \textit{Petri net}, sehingga nilainya menurun ketika abstraksi memunculkan percabangan dan paralelisme yang lebih eksplisit di antara dua belas kategori tindakan. Dengan kata lain, metrik ini sensitif terhadap kepadatan koneksi lokal, bukan terhadap ukuran model secara keseluruhan.
 
-Ukuran struktural justru memperlihatkan penyederhanaan yang besar. Jumlah aktivitas unik berkurang 89,29\% dari 112 menjadi 12, jumlah \textit{place} menyusut 67,07\% dari 82 menjadi 27, dan jumlah \textit{transition} turun 70,09\% dari 117 menjadi 35. Model \textit{as-is} yang memuat ratusan label mentah menghasilkan struktur \textit{spaghetti} yang sukar ditelusuri seorang analis, sedangkan model \textit{enriched} menampilkan alur pemeliharaan yang ringkas dan dapat dibaca dalam satu pandangan. Keterbacaan bagi manusia lebih tepat diwakili oleh pengurangan ukuran dan keragaman label ini daripada oleh satu skor \textit{simplicity} tunggal. Oleh karena itu, pendekatan LLM menghasilkan model yang lebih sederhana dan mudah dipahami dalam pengertian struktural dan operasional, meskipun metrik \textit{simplicity} PM4Py yang berbasis derajat \textit{arc} menunjukkan angka yang lebih rendah.
+Ukuran struktural justru memperlihatkan penyederhanaan yang besar. Aktivitas unik berkurang 89,29\% dari 112 menjadi 12, jumlah \textit{place} menyusut 61,73\% dari 81 menjadi 31, dan jumlah \textit{transition} turun 63,87\% dari 119 menjadi 43. Model \textit{as-is} yang memuat ratusan label mentah menghasilkan struktur \textit{spaghetti} yang sukar ditelusuri analis, sedangkan model \textit{enriched} menampilkan alur pemeliharaan yang ringkas dan terbaca dalam satu pandangan. Keterbacaan bagi manusia lebih tepat diwakili oleh pengurangan ukuran dan keragaman label ini daripada oleh satu skor \textit{simplicity} tunggal.
 
 \subsection{Validasi Output Anotasi LLM}
+\label{subsec:validasi-anotasi}
 
-Seluruh 308 \textit{events} berhasil dianotasi oleh LLM tanpa satu pun jatuh ke mekanisme cadangan berbasis aturan, sehingga dasar kepercayaan terhadap hasil anotasi perlu dinyatakan secara eksplisit. Validasi pada penelitian ini bertumpu pada tiga lapis. Pertama, setiap keluaran disertai skor \textit{confidence} yang dihasilkan model, dan sebagian besar \textit{event} memperoleh nilai pada rentang 0,95 hingga 1,00 sebagaimana tampak pada Tabel~\ref{tab:contoh-anotasi}. Kedua, ambang \textit{confidence} 0,45 diterapkan untuk mengidentifikasi \textit{event} anomali yang perlu ditinjau ulang, dan pada data ini tidak ada \textit{event} yang memerlukan penanganan tersebut. Ketiga, konsistensi keluaran dijaga melalui \textit{temperature} rendah sebesar 0,1 pada model \texttt{gemini-3.1-flash-lite}, yang menekan variasi acak sehingga label cenderung stabil untuk masukan yang sama.
+Seluruh 308 \textit{event} berhasil teranotasi oleh model, sehingga dasar kepercayaan terhadap hasil perlu dinyatakan secara eksplisit. Validasi bertumpu pada tiga lapis. Pertama, tiap keluaran menyertakan skor \textit{confidence}, dan sebagian besar \textit{event} berada pada rentang 0,95 hingga 1,00 sebagaimana tampak pada Tabel~\ref{tab:contoh-anotasi}. Kedua, ambang \textit{confidence} 0,45 diterapkan untuk menandai \textit{event} anomali, dan tidak ada \textit{event} yang jatuh di bawahnya. Ketiga, konsistensi keluaran dijaga melalui \textit{temperature} rendah sebesar 0,1 pada model \texttt{gemini-3.1-flash-lite} yang menekan variasi acak.
 
-Skor \textit{confidence} yang tinggi mencerminkan tingkat keyakinan model, bukan bukti kebenaran mutlak. Pemeriksaan informal terhadap contoh hasil anotasi pada Tabel~\ref{tab:contoh-anotasi} memperlihatkan pemetaan yang masuk akal secara domain, misalnya ``IR Test'' menjadi MEASUREMENT dan ``LEPAS THERMOSTAT'' menjadi DISASSEMBLY. Validasi formal terhadap \textit{gold standard} berlabel manual untuk seluruh \textit{event} belum dilakukan, sehingga tingkat akurasi anotasi belum terukur secara kuantitatif. Keterbatasan ini diakui secara terbuka, dan pemeriksaan menyeluruh oleh ahli pemeliharaan diusulkan sebagai langkah lanjutan untuk mengukur presisi anotasi secara objektif.
+Skor \textit{confidence} yang tinggi mencerminkan keyakinan model, bukan bukti kebenaran mutlak. Pemeriksaan informal pada Tabel~\ref{tab:contoh-anotasi} memperlihatkan pemetaan yang masuk akal secara domain, misalnya ``IR Test'' menjadi MEASUREMENT dan ``LEPAS THERMOSTAT'' menjadi DISASSEMBLY. Akurasi anotasi belum terukur secara kuantitatif, dan keterbatasan ini diakui secara terbuka, sehingga pemeriksaan menyeluruh oleh ahli pemeliharaan diusulkan sebagai langkah lanjutan.
+
+Kualitas anotasi juga bertumpu pada beberapa perilaku model yang layak dicatat. Model membedakan aktivitas beraroma pengujian secara semantik, misalnya ``IR Test'' dipetakan ke MEASUREMENT karena menghasilkan nilai ukur, sedangkan ``Function Test'' dipetakan ke TESTING karena bersifat verifikasi fungsi. Model juga memecah \textit{compound activity}, yaitu satu baris pekerjaan yang memuat beberapa tindakan, menjadi \textit{event} terpisah dan menyumbang 99 \textit{event} pemecahan. Di samping itu, lima kategori teratas menampung sekitar 82\% \textit{event}, sehingga kesimpulan pada kategori berfrekuensi rendah seperti LUBRICATION perlu kehati-hatian.
+
+\section{Analisis Performa dan Manfaat Operasional}
+
+Model \textit{enriched} membuka pembacaan proses bisnis pemeliharaan yang tidak tampak pada model \textit{as-is}. Alur baku \textit{overhaul} terbentuk dari pengarahan keselamatan, tahap diagnosis (CLEANING, INSPECTION, MEASUREMENT), tahap perbaikan (DISASSEMBLY, REPAIR, REPLACEMENT, ASSEMBLY), hingga TESTING sebagai verifikasi akhir.
+
+Manfaat pertama adalah efisiensi analisis proses. Reduksi aktivitas unik sebesar 89,29\% dari 112 menjadi 12 dan transisi sebesar 63,87\% mengubah model \textit{spaghetti} menjadi alur dua belas tahap yang terbaca.
+
+Manfaat kedua adalah penajaman prioritas sumber daya. CLEANING menyerap total waktu terbesar sehingga efisiensi penyiapan alat dan material berdampak paling luas, sedangkan REPAIR dan ADJUSTMENT paling lama per kejadian sehingga menuntut perencanaan suku cadang dan keahlian khusus.
+
+Manfaat ketiga adalah perbaikan proses bisnis berdasarkan anomali proses yang teridentifikasi, sebagaimana dirinci pada Subbab~\ref{subsec:temuan-anomali}.
+
+\subsection{Identifikasi Bottleneck}
+\label{subsec:identifikasi-bottleneck}
+
+Durasi pengerjaan dianalisis pada tingkat kategori tindakan sebagai jam kerja efektif sesuai SOP shift (08.00 sampai 16.30, setara 8,5 jam per hari). Akhir pekan tetap dihitung sebagai hari kerja karena \textit{overhaul} berjalan menerus, sedangkan SAFETY\_INDUCTION dan pengujian pascapemeliharaan ditetapkan sebagai blok tetap 30 menit. Tabel~\ref{tab:durasi-kategori} menyajikan jumlah kejadian, rata-rata, dan total durasi tiap kategori.
+
+\begin{table}[H]
+\centering
+\caption{Durasi Kerja per Kategori Action Type}
+\label{tab:durasi-kategori}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{@{}l r r r@{}}
+\toprule
+\textbf{Aktivitas} & \textbf{Jumlah \textit{Event}} & \textbf{Rata-rata Durasi Kerja (jam)} & \textbf{Total Durasi Kerja (jam)} \\
+\midrule
+CLEANING & 51 & 7,06 & 360,00 \\
+MEASUREMENT & 45 & 6,27 & 282,11 \\
+INSPECTION & 52 & 5,39 & 280,25 \\
+ADJUSTMENT & 9 & 21,56 & 194,00 \\
+REPLACEMENT & 20 & 7,35 & 147,00 \\
+REPAIR & 4 & 32,00 & 128,00 \\
+DISASSEMBLY & 12 & 4,83 & 58,00 \\
+LUBRICATION & 1 & 42,50 & 42,50 \\
+ASSEMBLY & 7 & 4,86 & 34,00 \\
+TESTING & 53 & 0,50 & 26,50 \\
+SAFETY\_INDUCTION & 52 & 0,50 & 26,00 \\
+OTHER & 2 & 10,00 & 20,00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Terdapat dua jenis \textit{bottleneck}. Secara akumulatif, CLEANING menyumbang total waktu terbesar (360,00 jam kerja), diikuti MEASUREMENT dan INSPECTION, karena frekuensinya tinggi. Secara per kejadian, REPAIR dan ADJUSTMENT paling lama (rata-rata 32,00 jam dan 21,56 jam) meski jarang terjadi. Pola ini mengarahkan dua strategi, yaitu efisiensi berbasis volume untuk pembersihan dan pemeriksaan serta perencanaan kesiapan sumber daya untuk perbaikan dan penyetelan.
+
+Interpretasi ini bersifat indikatif. Total durasi kerja seluruh kategori sekitar 1.598 jam, dibanding sekitar 3.071 jam bila memakai waktu kalender, dan sekitar 1.244 jam jika akhir pekan diperlakukan sebagai hari libur. Sebanyak 110 dari 308 \textit{timestamp} merupakan hasil imputasi penjadwalan, dan kategori berfrekuensi sangat kecil seperti LUBRICATION tidak dapat menjadi dasar kesimpulan yang kuat.
+
+\subsection{Temuan Anomali Proses dari Data Pemeliharaan yang Diuji}
+\label{subsec:temuan-anomali}
+
+\textit{Process mining} juga mengungkap anomali proses, yaitu penyimpangan urutan aktivitas dari alur ideal. Anomali ini bersumber dari urutan dan pengulangan pada \textit{event log}, berbeda dari anomali pelabelan pada Subbab~\ref{subsec:validasi-anotasi}. Empat pola berikut menjadi peluang perbaikan utama.
+
+Pertama, intervensi tanpa diagnosis. Sebanyak 8 dari 52 \textit{case} melakukan pembongkaran atau penggantian tanpa inspeksi atau pengukuran pendahulu, misalnya \textit{case} WT34962 dan WT35073. Perbaikan yang relevan adalah mewajibkan setiap pembongkaran, penggantian, atau perbaikan didahului inspeksi atau pengukuran yang terdokumentasi.
+
+Kedua, \textit{rework}. MEASUREMENT dan INSPECTION masing-masing berulang berurutan pada 7 kesempatan, dan pengulangan inspeksi muncul pada 8 \textit{case}, yang mengindikasikan diagnosis tahap pertama belum tuntas. Perbaikan yang relevan adalah melengkapi panduan pemeriksaan dan alat ukur agar diagnosis cukup dilakukan sekali.
+
+Ketiga, aktivitas setelah pengujian akhir. Pada 4 \textit{case} masih terdapat aktivitas setelah TESTING terakhir, misalnya WT35159 yang diikuti ADJUSTMENT dan WT34939 yang diikuti INSPECTION, yang menandakan pengujian belum lolos. Perbaikan yang relevan adalah mendokumentasikan hasil uji dan akar penyebab kegagalan agar pengujian ulang dapat ditelusuri.
+
+Keempat, jeda panjang sebelum intervensi. Relasi CLEANING $\rightarrow$ ADJUSTMENT dan INSPECTION $\rightarrow$ REPLACEMENT pada relasi lengkap menunjukkan selang penyelesaian yang panjang (59,43 jam dan 38,44 jam), yang mencerminkan waktu tunggu ketersediaan suku cadang atau penjadwalan tim. Perbaikan yang relevan adalah menyiapkan suku cadang kritis lebih awal dan merapatkan penjadwalan menjelang penggantian dan penyetelan.
+
+Keempat pola menunjukkan bahwa \textit{process discovery} tidak sekadar menyederhanakan model, tetapi juga menghasilkan temuan yang dapat ditindaklanjuti untuk memperkuat disiplin urutan kerja, menekan \textit{rework}, dan memperpendek waktu tunggu.
