@@ -24,6 +24,10 @@ Penelitian ini difokuskan pada pemanfaatan data log yang tersedia. Permasalahan 
 \end{enumerate}
 
 
+\section{Tujuan Penelitian}
+
+Penelitian ini bertujuan menerapkan \textit{Generative AI}, khususnya \textit{Large Language Model}, sebagai anotator yang menstandarkan ragam label aktivitas pemeliharaan pada \textit{event log} menjadi dua belas kategori tindakan yang konsisten. Hasil standarisasi tersebut kemudian digunakan untuk membangun dan membandingkan model proses pemeliharaan melalui algoritma \textit{Inductive Miner infrequent} (IMf) pada dua skenario, yaitu \textit{event log as-is} berlabel aktivitas mentah dan \textit{event log enriched} berlabel hasil anotasi LLM. Kedua model dievaluasi melalui empat metrik \textit{conformance checking}, yaitu \textit{fitness}, \textit{precision}, \textit{generalization}, dan \textit{simplicity}, untuk menentukan apakah penyeragaman label berbasis LLM menghasilkan model proses yang lebih ringkas dibandingkan pendekatan konvensional tanpa anotasi.
+
 \section{Batasan Masalah}
 
 Untuk menjaga fokus dan konsistensi analisis, penelitian ini dibatasi pada beberapa aspek sebagai berikut. Objek penelitian hanya mencakup satu unit Pembangkit Listrik Tenaga Diesel (PLTD) Titikuning. Sumber data dibatasi pada dokumen \textit{job card} pekerjaan pemeliharaan dan struktur \textit{Work Breakdown Structure} (WBS) dari kegiatan \textit{overhaul} unit PLTD Titikuning. Dengan demikian, temuan yang dihasilkan tidak dimaksudkan untuk digeneralisasikan ke unit pembangkit lain maupun ke jenis pemeliharaan yang berbeda.
@@ -79,7 +83,6 @@ Penelitian ini dilaksanakan melalui tahapan-tahapan sebagai berikut:
   \end{itemize}
 \end{enumerate}
 
-\clearpage
 \section{Jadwal Kegiatan}
 
 Penelitian ini diselesaikan dalam enam bulan dengan rincian kegiatan seperti pada Tabel~\ref{tab:jadwalKegiatan}.
@@ -89,10 +92,11 @@ Penelitian ini diselesaikan dalam enam bulan dengan rincian kegiatan seperti pad
   \caption{Jadwal Kegiatan Penelitian Tugas Akhir}
   \label{tab:jadwalKegiatan}
   \footnotesize
-  \renewcommand{\arraystretch}{1.5}
-  {\setlength{\tabcolsep}{3pt}
+  \renewcommand{\arraystretch}{0.95}
+  \setlength{\extrarowheight}{0pt}
+  {\setlength{\tabcolsep}{2pt}
   \newcommand{\x}{\cellcolor{blue!30}}
-  \begin{tabularx}{\textwidth}{|c|X|*{6}{p{0.25cm}p{0.25cm}p{0.25cm}p{0.25cm}|}}
+  \begin{tabularx}{\textwidth}{|c|X|*{6}{p{0.22cm}p{0.22cm}p{0.22cm}p{0.22cm}|}}
   \hline
   \multirow{2}{*}{\textbf{No}} &
   \multirow{2}{*}{\textbf{Kegiatan}} &
@@ -116,6 +120,3 @@ Penelitian ini diselesaikan dalam enam bulan dengan rincian kegiatan seperti pad
   \end{tabularx}
   }
 \end{table}
-
-\newpage
-

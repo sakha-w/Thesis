@@ -1,9 +1,10 @@
 {
-  "files.autoSave": "onFocusChange",
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1500,
   "latex-workshop.chktex.enabled": false,
   "latex-workshop.latex.autoBuild.run": "onSave",
-  "latex-workshop.latex.autoBuild.interval": 3000,
-  "latex-workshop.latex.watch.files.interval": 3000,
+  "latex-workshop.latex.autoBuild.interval": 1000,
+  "latex-workshop.latex.watch.files.interval": 1000,
   "latex-workshop.latex.watch.files.ignore": [
     "**/build/**",
     "**/*.pdf",
@@ -11,7 +12,10 @@
   ],
   "latex-workshop.latex.watch.usePolling": false,
   "latex-workshop.latex.outDir": "%DIR%/build",
-  "latex-workshop.latex.rootFile": "main.tex",
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+  "latex-workshop.latex.search.rootFiles.include": [
+    "/main.tex"
+  ],
   "latex-workshop.latex.recipe.default": "xelatex (cepat)",
   "latex-workshop.latex.recipes": [
     {

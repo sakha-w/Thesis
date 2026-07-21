@@ -1,3 +1,4 @@
+% !TEX root = ../main.tex
 \chapter{Hasil Percobaan dan Analisis}
 
 \section{Hasil Preprocessing}
@@ -25,7 +26,7 @@ Jumlah \textit{cases} & 52 \\
 
 \section{Hasil Anotasi LLM}
 
-Model bahasa memberi anotasi pada seluruh 308 \textit{event} di 52 \textit{case}. Seluruh \textit{event} terdistribusi ke dalam dua belas kategori \texttt{action\_type}. INSPECTION dan TESTING menempati frekuensi tertinggi dengan masing-masing 53 \textit{event}, diikuti CLEANING dan SAFETY\_INDUCTION yang masing-masing mencakup 52 \textit{event}. Komposisi ini mencerminkan karakteristik pekerjaan \textit{overhaul} yang didominasi pemeriksaan, pengujian, pembersihan, dan pengarahan keselamatan. Sebaliknya, REPAIR, OTHER, dan LUBRICATION muncul jarang sesuai sifat pekerjaannya. Distribusi lengkap disajikan pada Tabel~\ref{tab:distribusi-action-type}.
+Model bahasa memberi anotasi pada seluruh 308 \textit{event} di 52 \textit{case}. Seluruh \textit{event} terdistribusi ke dalam dua belas kategori \texttt{action\_type}. TESTING menempati frekuensi tertinggi dengan 53 \textit{event} (17,21\%), diikuti SAFETY\_INDUCTION dan CLEANING yang masing-masing mencakup 52 \textit{event} (16,88\%), serta INSPECTION dengan 51 \textit{event} (16,56\%). Komposisi ini mencerminkan karakteristik pekerjaan \textit{overhaul} yang didominasi pengujian, pengarahan keselamatan, pembersihan, dan pemeriksaan. Sebaliknya, REPAIR, OTHER, dan LUBRICATION muncul jarang sesuai sifat pekerjaannya. Distribusi lengkap disajikan pada Tabel~\ref{tab:distribusi-action-type}.
 
 \begin{table}[H]
 \centering
@@ -38,11 +39,11 @@ Model bahasa memberi anotasi pada seluruh 308 \textit{event} di 52 \textit{case}
 \toprule
 \textbf{Action Type} & \textbf{Jumlah \textit{Event}} & \textbf{Persentase} & \textbf{Rerata \textit{Conf.}} \\
 \midrule
-INSPECTION & 53 & 17,21\% & 0,93 \\
 TESTING & 53 & 17,21\% & 0,96 \\
-CLEANING & 52 & 16,88\% & 0,94 \\
 SAFETY\_INDUCTION & 52 & 16,88\% & 1,00 \\
-MEASUREMENT & 43 & 13,96\% & 0,95 \\
+CLEANING & 52 & 16,88\% & 0,94 \\
+INSPECTION & 51 & 16,56\% & 0,93 \\
+MEASUREMENT & 45 & 14,61\% & 0,95 \\
 REPLACEMENT & 20 & 6,49\% & 0,95 \\
 DISASSEMBLY & 12 & 3,90\% & 0,97 \\
 ADJUSTMENT & 9 & 2,92\% & 0,86 \\
@@ -232,15 +233,15 @@ Durasi pengerjaan dianalisis pada tingkat kategori tindakan sebagai jam kerja ef
 \toprule
 \textbf{Aktivitas} & \textbf{Jumlah \textit{Event}} & \textbf{Rata-rata Durasi Kerja (jam)} & \textbf{Total Durasi Kerja (jam)} \\
 \midrule
-CLEANING & 51 & 7,06 & 360,00 \\
-MEASUREMENT & 45 & 6,27 & 282,11 \\
-INSPECTION & 52 & 5,39 & 280,25 \\
-ADJUSTMENT & 9 & 21,56 & 194,00 \\
+CLEANING & 52 & 7,23 & 375,96 \\
+MEASUREMENT & 45 & 6,27 & 282,15 \\
+INSPECTION & 51 & 5,39 & 274,89 \\
+ADJUSTMENT & 9 & 21,56 & 194,04 \\
 REPLACEMENT & 20 & 7,35 & 147,00 \\
 REPAIR & 4 & 32,00 & 128,00 \\
-DISASSEMBLY & 12 & 4,83 & 58,00 \\
+DISASSEMBLY & 12 & 4,83 & 57,96 \\
 LUBRICATION & 1 & 42,50 & 42,50 \\
-ASSEMBLY & 7 & 4,86 & 34,00 \\
+ASSEMBLY & 7 & 4,86 & 34,02 \\
 TESTING & 53 & 0,50 & 26,50 \\
 SAFETY\_INDUCTION & 52 & 0,50 & 26,00 \\
 OTHER & 2 & 10,00 & 20,00 \\
@@ -248,9 +249,9 @@ OTHER & 2 & 10,00 & 20,00 \\
 \end{tabular}
 \end{table}
 
-Terdapat dua jenis \textit{bottleneck}. Secara akumulatif, CLEANING menyumbang total waktu terbesar (360,00 jam kerja), diikuti MEASUREMENT dan INSPECTION, karena frekuensinya tinggi. Secara per kejadian, REPAIR dan ADJUSTMENT paling lama (rata-rata 32,00 jam dan 21,56 jam) meski jarang terjadi. Pola ini mengarahkan dua strategi, yaitu efisiensi berbasis volume untuk pembersihan dan pemeriksaan serta perencanaan kesiapan sumber daya untuk perbaikan dan penyetelan.
+Terdapat dua jenis \textit{bottleneck}. Secara akumulatif, CLEANING menyumbang total waktu terbesar (375,96 jam kerja), diikuti MEASUREMENT dan INSPECTION, karena frekuensinya tinggi. Secara per kejadian, REPAIR dan ADJUSTMENT paling lama (rata-rata 32,00 jam dan 21,56 jam) meski jarang terjadi. Pola ini mengarahkan dua strategi, yaitu efisiensi berbasis volume untuk pembersihan dan pemeriksaan serta perencanaan kesiapan sumber daya untuk perbaikan dan penyetelan.
 
-Interpretasi ini bersifat indikatif. Total durasi kerja seluruh kategori sekitar 1.598 jam, dibanding sekitar 3.071 jam bila memakai waktu kalender, dan sekitar 1.244 jam jika akhir pekan diperlakukan sebagai hari libur. Sebanyak 110 dari 308 \textit{timestamp} merupakan hasil imputasi penjadwalan, dan kategori berfrekuensi sangat kecil seperti LUBRICATION tidak dapat menjadi dasar kesimpulan yang kuat.
+Interpretasi ini bersifat indikatif. Total durasi kerja seluruh kategori sekitar 1.609 jam, dibanding sekitar 3.071 jam bila memakai waktu kalender, dan sekitar 1.244 jam jika akhir pekan diperlakukan sebagai hari libur. Sebanyak 110 dari 308 \textit{timestamp} merupakan hasil imputasi penjadwalan, dan kategori berfrekuensi sangat kecil seperti LUBRICATION tidak dapat menjadi dasar kesimpulan yang kuat.
 
 \subsection{Temuan Anomali Proses dari Data Pemeliharaan yang Diuji}
 \label{subsec:temuan-anomali}
@@ -259,7 +260,7 @@ Interpretasi ini bersifat indikatif. Total durasi kerja seluruh kategori sekitar
 
 Pertama, intervensi tanpa diagnosis. Sebanyak 8 dari 52 \textit{case} melakukan pembongkaran atau penggantian tanpa inspeksi atau pengukuran pendahulu, misalnya \textit{case} WT34962 dan WT35073. Perbaikan yang relevan adalah mewajibkan setiap pembongkaran, penggantian, atau perbaikan didahului inspeksi atau pengukuran yang terdokumentasi.
 
-Kedua, \textit{rework}. MEASUREMENT dan INSPECTION masing-masing berulang berurutan pada 7 kesempatan, dan pengulangan inspeksi muncul pada 8 \textit{case}, yang mengindikasikan diagnosis tahap pertama belum tuntas. Perbaikan yang relevan adalah melengkapi panduan pemeriksaan dan alat ukur agar diagnosis cukup dilakukan sekali.
+Kedua, diagnosis multi-komponen berurutan. Dalam DFG, pada beberapa kesempatan, kategori MEASUREMENT dan INSPECTION disajikan secara berurutan tanpa kategori lain di antaranya. Namun, analisis terhadap atribut komponen dari setiap \textit{event} menunjukkan bahwa pola ini didominasi oleh pemeriksaan atau pengukuran terhadap komponen yang berbeda dalam satu sesi diagnosis: dari enam \textit{event} INSPECTION berturut-turut, semuanya menargetkan komponen yang berbeda, dan dari tujuh \textit{event} MEASUREMENT berturut-turut, lima di antaranya juga menargetkan komponen yang berbeda. Temuan ini menyoroti risiko salah menafsirkan pengulangan kategori tindakan sebagai pengerjaan ulang jika tidak divalidasi pada tingkat komponen, bukan hanya pada tingkat kategori \texttt{action\_type}. Perbaikan yang relevan mempertimbangkan penambahan atribut komponen dalam analisis kinerja DFG sebagai upaya untuk membedakan dengan tepat pola pengerjaan ulang yang sebenarnya (pengulangan pada komponen yang identik) dari diagnosis multi-komponen yang normal dan sehat.
 
 Ketiga, aktivitas setelah pengujian akhir. Pada 4 \textit{case} masih terdapat aktivitas setelah TESTING terakhir, misalnya WT35159 yang diikuti ADJUSTMENT dan WT34939 yang diikuti INSPECTION, yang menandakan pengujian belum lolos. Perbaikan yang relevan adalah mendokumentasikan hasil uji dan akar penyebab kegagalan agar pengujian ulang dapat ditelusuri.
 
